@@ -3,330 +3,197 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Koçarlı Lokma - Fiyat Hesaplama</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>HAS-BAS LOKMA - Fiyat Hesaplama</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---gold:#C8963E;
---gold-light:#F5E6C8;
---gold-dark:#8B6914;
---brown:#3E2723;
---brown-light:#5D4037;
---cream:#FFF8F0;
---cream-dark:#F5EDE0;
---white:#FFFFFF;
---red:#C62828;
---green:#2E7D32;
---text:#2C1810;
---text-muted:#7B6B5D;
+--gold:#C8963E;--gold-light:#F5E6C8;--gold-dark:#8B6914;
+--brown:#3E2723;--brown-light:#5D4037;
+--cream:#FFF8F0;--cream-dark:#F5EDE0;--white:#FFFFFF;
+--red:#C62828;--green:#2E7D32;
+--text:#2C1810;--text-muted:#7B6B5D;
 }
-body{
-font-family:'DM Sans',sans-serif;
-background:var(--cream);
-color:var(--text);
-min-height:100vh;
-}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+
 .hero{
 background:linear-gradient(135deg,var(--brown) 0%,var(--brown-light) 100%);
-padding:2.5rem 1.5rem 3.5rem;
-text-align:center;
-position:relative;
-overflow:hidden;
+padding:2rem 1.5rem 3.5rem;text-align:center;position:relative;overflow:hidden
 }
 .hero::before{
-content:'';
-position:absolute;
-top:0;left:0;right:0;bottom:0;
-background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8963E' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8963E' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
 }
 .hero-content{position:relative;z-index:1;max-width:600px;margin:0 auto}
 .logo-icon{
-width:64px;height:64px;
-background:var(--gold);
-border-radius:50%;
+width:68px;height:68px;background:var(--gold);border-radius:50%;
 display:flex;align-items:center;justify-content:center;
-margin:0 auto 1rem;
-font-size:28px;
-box-shadow:0 4px 20px rgba(200,150,62,0.3);
+margin:0 auto 0.75rem;font-size:30px;
+box-shadow:0 4px 20px rgba(200,150,62,0.3)
 }
 .hero h1{
-font-family:'Playfair Display',serif;
-font-size:2rem;
-color:var(--white);
-margin-bottom:0.3rem;
-letter-spacing:-0.5px;
+font-family:'Playfair Display',serif;font-size:2.2rem;
+color:var(--white);margin-bottom:0.2rem;letter-spacing:1px;font-weight:800
 }
-.hero p{
-color:var(--gold-light);
-font-size:0.95rem;
-font-weight:400;
+.hero p{color:var(--gold-light);font-size:0.9rem;font-weight:400}
+.hero .subtitle{
+display:inline-block;background:rgba(200,150,62,0.15);
+border:1px solid rgba(200,150,62,0.3);border-radius:20px;
+padding:4px 16px;margin-top:8px;font-size:0.8rem;color:var(--gold-light)
 }
+.stats-bar{
+max-width:560px;margin:-1rem auto 0;padding:0 1.5rem;position:relative;z-index:5;
+display:flex;gap:8px;
+}
+.stat-pill{
+flex:1;background:var(--white);border-radius:12px;padding:10px;text-align:center;
+box-shadow:0 2px 12px rgba(62,39,35,0.08)
+}
+.stat-pill .sp-val{font-size:1.1rem;font-weight:700;color:var(--gold-dark)}
+.stat-pill .sp-lbl{font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px}
+
 .search-section{
-max-width:560px;
-margin:-1.5rem auto 0;
-padding:0 1.5rem;
-position:relative;
-z-index:10;
+max-width:560px;margin:1rem auto 0;padding:0 1.5rem;position:relative;z-index:10
 }
 .search-box{
-background:var(--white);
-border-radius:16px;
-box-shadow:0 8px 40px rgba(62,39,35,0.12),0 2px 8px rgba(62,39,35,0.06);
-padding:6px;
-display:flex;
-align-items:center;
-border:2px solid transparent;
-transition:border-color 0.2s;
+background:var(--white);border-radius:14px;
+box-shadow:0 6px 32px rgba(62,39,35,0.1);
+padding:5px;display:flex;align-items:center;border:2px solid transparent;
+transition:border-color 0.2s
 }
-.search-box:focus-within{
-border-color:var(--gold);
-}
-.search-box svg{
-margin-left:14px;
-flex-shrink:0;
-color:var(--text-muted);
-}
+.search-box:focus-within{border-color:var(--gold)}
+.search-box svg{margin-left:12px;flex-shrink:0;color:var(--text-muted)}
 .search-box input{
-flex:1;
-border:none;
-outline:none;
-padding:14px 12px;
-font-size:1.05rem;
-font-family:'DM Sans',sans-serif;
-color:var(--text);
-background:transparent;
+flex:1;border:none;outline:none;padding:12px 10px;font-size:1rem;
+font-family:'DM Sans',sans-serif;color:var(--text);background:transparent
 }
 .search-box input::placeholder{color:#B0A090}
 .search-results{
-position:absolute;
-top:100%;
-left:1.5rem;right:1.5rem;
-background:var(--white);
-border-radius:12px;
+position:absolute;top:100%;left:1.5rem;right:1.5rem;
+background:var(--white);border-radius:12px;
 box-shadow:0 12px 48px rgba(62,39,35,0.15);
-margin-top:4px;
-max-height:300px;
-overflow-y:auto;
-display:none;
-z-index:100;
+margin-top:4px;max-height:320px;overflow-y:auto;display:none;z-index:100
 }
 .search-results.active{display:block}
 .search-item{
-padding:12px 18px;
-cursor:pointer;
-display:flex;
-justify-content:space-between;
-align-items:center;
-border-bottom:1px solid #F0E8DC;
-transition:background 0.15s;
+padding:10px 16px;cursor:pointer;display:flex;justify-content:space-between;
+align-items:center;border-bottom:1px solid #F0E8DC;transition:background 0.15s
 }
 .search-item:last-child{border-bottom:none}
 .search-item:hover,.search-item.selected{background:var(--cream)}
-.search-item-name{font-weight:500;font-size:0.95rem}
-.search-item-dist{font-size:0.8rem;color:var(--text-muted)}
-.no-result{
-padding:20px 18px;
-text-align:center;
-color:var(--text-muted);
-font-size:0.9rem;
-}
+.search-item-left{display:flex;flex-direction:column}
+.search-item-name{font-weight:600;font-size:0.9rem}
+.search-item-sub{font-size:0.7rem;color:var(--text-muted)}
+.search-item-right{text-align:right}
+.search-item-dist{font-size:0.75rem;color:var(--text-muted)}
+.search-item-price{font-size:0.85rem;font-weight:700;color:var(--green)}
+.no-result{padding:20px 16px;text-align:center;color:var(--text-muted);font-size:0.9rem}
 
-.result-card{
-max-width:560px;
-margin:1.5rem auto;
-padding:0 1.5rem;
-display:none;
-}
+.result-card{max-width:560px;margin:1.25rem auto;padding:0 1.5rem;display:none}
 .result-card.active{display:block}
 .card{
-background:var(--white);
-border-radius:16px;
-box-shadow:0 4px 24px rgba(62,39,35,0.08);
-overflow:hidden;
-animation:slideUp 0.4s ease;
+background:var(--white);border-radius:16px;
+box-shadow:0 4px 24px rgba(62,39,35,0.08);overflow:hidden;
+animation:slideUp 0.35s ease
 }
-@keyframes slideUp{
-from{opacity:0;transform:translateY(16px)}
-to{opacity:1;transform:translateY(0)}
-}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card-header{
 background:linear-gradient(135deg,var(--brown) 0%,var(--brown-light) 100%);
-padding:1.25rem 1.5rem;
-display:flex;
-justify-content:space-between;
-align-items:center;
+padding:1.25rem 1.5rem;display:flex;justify-content:space-between;align-items:center
 }
-.card-header h2{
-font-family:'Playfair Display',serif;
-color:var(--white);
-font-size:1.4rem;
-}
+.card-header h2{font-family:'Playfair Display',serif;color:var(--white);font-size:1.3rem}
 .card-header .badge{
-background:var(--gold);
-color:var(--brown);
-padding:4px 12px;
-border-radius:20px;
-font-size:0.75rem;
-font-weight:700;
+background:var(--gold);color:var(--brown);padding:4px 12px;
+border-radius:20px;font-size:0.7rem;font-weight:700
 }
-.card-body{padding:1.5rem}
-.stat-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-bottom:1rem;
-}
-.stat{
-background:var(--cream);
-border-radius:12px;
-padding:1rem;
-text-align:center;
-}
-.stat-label{
-font-size:0.75rem;
-color:var(--text-muted);
-text-transform:uppercase;
-letter-spacing:0.5px;
-margin-bottom:4px;
-font-weight:600;
-}
-.stat-value{
-font-size:1.5rem;
-font-weight:700;
-color:var(--text);
-}
-.stat-value.price{color:var(--green);font-size:1.6rem}
+.card-body{padding:1.25rem}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:0.75rem}
+.stat{background:var(--cream);border-radius:10px;padding:0.85rem;text-align:center}
+.stat-label{font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px;font-weight:600}
+.stat-value{font-size:1.4rem;font-weight:700;color:var(--text)}
+.stat-value.price{color:var(--green)}
 .stat-value.distance{color:var(--gold-dark)}
-.price-breakdown{
-background:var(--cream-dark);
-border-radius:12px;
-padding:1rem 1.25rem;
-margin-top:0.5rem;
-}
-.price-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:6px 0;
-font-size:0.85rem;
-color:var(--text-muted);
-}
-.price-row.total{
-border-top:2px solid var(--gold-light);
-margin-top:6px;
-padding-top:10px;
-font-weight:700;
-font-size:1rem;
-color:var(--text);
-}
+.price-breakdown{background:var(--cream-dark);border-radius:10px;padding:0.85rem 1rem;margin-top:0.4rem}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:0.8rem;color:var(--text-muted)}
+.price-row.total{border-top:2px solid var(--gold-light);margin-top:4px;padding-top:8px;font-weight:700;font-size:0.95rem;color:var(--text)}
 
-.info-section{
-max-width:560px;
-margin:1.5rem auto 2rem;
-padding:0 1.5rem;
-}
-.info-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-.info-card{
-background:var(--white);
-border-radius:12px;
-padding:1rem;
-box-shadow:0 2px 12px rgba(62,39,35,0.05);
-text-align:center;
-cursor:pointer;
-transition:transform 0.2s,box-shadow 0.2s;
-}
-.info-card:hover{
-transform:translateY(-2px);
-box-shadow:0 6px 20px rgba(62,39,35,0.1);
-}
-.info-card .ic-icon{
-font-size:1.5rem;
-margin-bottom:6px;
-}
-.info-card .ic-name{font-weight:600;font-size:0.85rem;margin-bottom:2px}
-.info-card .ic-price{font-size:0.8rem;color:var(--green);font-weight:700}
-.info-card .ic-dist{font-size:0.7rem;color:var(--text-muted)}
-
-.section-title{
-font-family:'Playfair Display',serif;
-font-size:1.15rem;
-margin-bottom:0.75rem;
-color:var(--brown);
-padding-left:4px;
-}
-
-.footer{
-text-align:center;
-padding:2rem 1.5rem;
-color:var(--text-muted);
-font-size:0.75rem;
-border-top:1px solid var(--cream-dark);
-}
-.footer strong{color:var(--gold-dark)}
-
-.tag-row{
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-margin:1.5rem auto;
-max-width:560px;
-padding:0 1.5rem;
-}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:1rem auto;max-width:560px;padding:0 1.5rem}
 .tag{
-background:var(--white);
-border:1px solid var(--cream-dark);
-border-radius:20px;
-padding:6px 14px;
-font-size:0.8rem;
-font-weight:500;
-cursor:pointer;
-transition:all 0.2s;
-color:var(--text-muted);
+background:var(--white);border:1px solid var(--cream-dark);border-radius:20px;
+padding:5px 12px;font-size:0.75rem;font-weight:500;cursor:pointer;
+transition:all 0.2s;color:var(--text-muted)
 }
-.tag:hover{
-background:var(--gold-light);
-border-color:var(--gold);
-color:var(--gold-dark);
+.tag:hover{background:var(--gold-light);border-color:var(--gold);color:var(--gold-dark)}
+
+.info-section{max-width:560px;margin:1rem auto 2rem;padding:0 1.5rem}
+.section-title{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:0.6rem;color:var(--brown);padding-left:4px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.info-card{
+background:var(--white);border-radius:10px;padding:0.75rem;
+box-shadow:0 2px 10px rgba(62,39,35,0.04);text-align:center;
+cursor:pointer;transition:transform 0.2s,box-shadow 0.2s
 }
+.info-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(62,39,35,0.1)}
+.info-card .ic-name{font-weight:600;font-size:0.8rem;margin-bottom:1px}
+.info-card .ic-price{font-size:0.75rem;color:var(--green);font-weight:700}
+.info-card .ic-dist{font-size:0.65rem;color:var(--text-muted)}
+
+.footer{text-align:center;padding:1.5rem;color:var(--text-muted);font-size:0.7rem;border-top:1px solid var(--cream-dark)}
+.footer strong{color:var(--gold-dark)}
 </style>
 </head>
 <body>
 
 <div class="hero">
 <div class="hero-content">
-<div class="logo-icon">🍩</div>
-<h1>Koçarlı Lokma</h1>
-<p>Fiyat hesaplama &mdash; Lokasyon ara, fiyatını öğren</p>
+<div class="logo-icon" style="font-family:'Playfair Display',serif;font-size:22px;color:var(--brown);font-weight:800">HB</div>
+<h1>HAS-BAS LOKMA</h1>
+<p>Koçarlı &mdash; Lokma Döküm Hizmeti</p>
+<span class="subtitle">Aydın &bull; Muğla &bull; Denizli &bull; İzmir</span>
+</div>
+</div>
+
+<div class="stats-bar">
+<div class="stat-pill">
+<div class="sp-val">750</div>
+<div class="sp-lbl">Lokasyon</div>
+</div>
+<div class="stat-pill">
+<div class="sp-val">50 kg</div>
+<div class="sp-lbl">Lokma</div>
+</div>
+<div class="stat-pill">
+<div class="sp-val">Koçarlı</div>
+<div class="sp-lbl">Çıkış</div>
 </div>
 </div>
 
 <div class="search-section">
 <div class="search-box" id="searchBox">
-<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-<input type="text" id="searchInput" placeholder="Lokasyon ara... (ör: Buharkent)" autocomplete="off">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+<input type="text" id="searchInput" placeholder="Köy, ilçe veya şehir ara..." autocomplete="off">
 </div>
 <div class="search-results" id="searchResults"></div>
 </div>
 
 <div class="tag-row" id="tagRow">
-<span class="tag" data-loc="Aydın Merkez">Aydın Merkez</span>
+<span class="tag" data-loc="Aydın Merkez">Aydın</span>
 <span class="tag" data-loc="Nazilli">Nazilli</span>
-<span class="tag" data-loc="Denizli">Denizli</span>
-<span class="tag" data-loc="Muğla">Muğla</span>
-<span class="tag" data-loc="Marmaris">Marmaris</span>
 <span class="tag" data-loc="Söke">Söke</span>
+<span class="tag" data-loc="Davutlar">Davutlar</span>
+<span class="tag" data-loc="Denizli">Denizli</span>
+<span class="tag" data-loc="Muğla Merkez">Muğla</span>
+<span class="tag" data-loc="Marmaris">Marmaris</span>
+<span class="tag" data-loc="Kuşadası">Kuşadası</span>
+<span class="tag" data-loc="Buharkent">Buharkent</span>
+<span class="tag" data-loc="Didim">Didim</span>
 </div>
 
 <div class="result-card" id="resultCard">
 <div class="card">
 <div class="card-header">
 <h2 id="resultName">-</h2>
-<span class="badge">50 KG</span>
+<span class="badge">50 KG LOKMA</span>
 </div>
 <div class="card-body">
 <div class="stat-grid">
@@ -340,22 +207,11 @@ color:var(--gold-dark);
 </div>
 </div>
 <div class="price-breakdown">
-<div class="price-row">
-<span>Çıkış noktası</span>
-<span>Koçarlı</span>
-</div>
-<div class="price-row">
-<span>Varış noktası</span>
-<span id="resultDest">-</span>
-</div>
-<div class="price-row">
-<span>Tahmini süre</span>
-<span id="resultTime">-</span>
-</div>
-<div class="price-row total">
-<span>Toplam fiyat (50 kg)</span>
-<span id="resultTotalPrice">-</span>
-</div>
+<div class="price-row"><span>Çıkış</span><span>Koçarlı</span></div>
+<div class="price-row"><span>Varış</span><span id="resultDest">-</span></div>
+<div class="price-row"><span>İlçe</span><span id="resultIlce">-</span></div>
+<div class="price-row"><span>Tahmini süre</span><span id="resultTime">-</span></div>
+<div class="price-row total"><span>Toplam (50 kg)</span><span id="resultTotal">-</span></div>
 </div>
 </div>
 </div>
@@ -367,209 +223,93 @@ color:var(--gold-dark);
 </div>
 
 <div class="footer">
-<strong>Koçarlı Lokma</strong> &mdash; Tüm fiyatlar 50 kg lokma içindir.<br>
-Fiyatlar mesafeye göre değişiklik gösterebilir. &copy; 2026
+<strong>HAS-BAS LOKMA</strong> &mdash; Koçarlı / Aydın<br>
+Tüm fiyatlar 50 kg lokma döküm hizmeti içindir. &copy; 2026
 </div>
 
 <script>
-const locations = [
-  // Aydın İli
-  {name:"Aydın Merkez",il:"Aydın",km:22,fiyat:9000},
-  {name:"Efeler",il:"Aydın",km:22,fiyat:9000},
-  {name:"Söke",il:"Aydın",km:36,fiyat:10000},
-  {name:"Kuşadası",il:"Aydın",km:50,fiyat:11000},
-  {name:"Davutlar",il:"Aydın",km:55,fiyat:11000},
-  {name:"İncirliova",il:"Aydın",km:35,fiyat:10000},
-  {name:"Germencik",il:"Aydın",km:42,fiyat:10500},
-  {name:"Köşk",il:"Aydın",km:45,fiyat:10500},
-  {name:"Sultanhisar",il:"Aydın",km:55,fiyat:11000},
-  {name:"Kuyucak",il:"Aydın",km:62,fiyat:11000},
-  {name:"Nazilli",il:"Aydın",km:67,fiyat:11000},
-  {name:"Buharkent",il:"Aydın",km:80,fiyat:12000},
-  {name:"Bozdoğan",il:"Aydın",km:48,fiyat:10500},
-  {name:"Çine",il:"Aydın",km:30,fiyat:9500},
-  {name:"Karacasu",il:"Aydın",km:72,fiyat:11500},
-  {name:"Karpuzlu",il:"Aydın",km:22,fiyat:9000},
-  {name:"Yenipazar",il:"Aydın",km:58,fiyat:11000},
-  {name:"Didim",il:"Aydın",km:78,fiyat:12000},
-  {name:"Altınkum",il:"Aydın",km:80,fiyat:12000},
+const L=[{"n": "Acarlar", "i": "İncirliova", "il": "Aydın", "k": 31, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Acıpayam", "i": "Acıpayam", "il": "Denizli", "k": 170, "f": 15000, "t": "İlçe Merkezi"}, {"n": "Adaköy", "i": "Marmaris", "il": "Muğla", "k": 168, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Akbük", "i": "Didim", "il": "Aydın", "k": 78, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Akdere", "i": "Pamukkale", "il": "Denizli", "k": 152, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Akhan", "i": "Pamukkale", "il": "Denizli", "k": 139, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Akkaya", "i": "Menteşe", "il": "Muğla", "k": 115, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Akkent", "i": "Çal", "il": "Denizli", "k": 117, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Akköy", "i": "Pamukkale", "il": "Denizli", "k": 143, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Akmescit", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Akpınar", "i": "Buldan", "il": "Denizli", "k": 106, "f": 12500, "t": "Köy/Mahalle"}, {"n": "Aktaş", "i": "Bozkurt", "il": "Denizli", "k": 175, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Aktepe", "i": "Pamukkale", "il": "Denizli", "k": 144, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Akyaka", "i": "Çine", "il": "Aydın", "k": 41, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Akyarlar", "i": "Bodrum", "il": "Muğla", "k": 150, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Akyeniköy", "i": "Çine", "il": "Aydın", "k": 30, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Akçakonak", "i": "Söke", "il": "Aydın", "k": 33, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Akçaköy", "i": "Buharkent", "il": "Aydın", "k": 78, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Akçaova", "i": "Çine", "il": "Aydın", "k": 33, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Akçapınar", "i": "Pamukkale", "il": "Denizli", "k": 138, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Akçeşme", "i": "Köşk", "il": "Aydın", "k": 41, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Alamut", "i": "Bozdoğan", "il": "Aydın", "k": 58, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Alandız", "i": "Buldan", "il": "Denizli", "k": 120, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Alangüllü", "i": "Germencik", "il": "Aydın", "k": 46, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Alankoy", "i": "Seydikemer", "il": "Muğla", "k": 220, "f": 17500, "t": "Köy/Mahalle"}, {"n": "Alanlı", "i": "Efeler", "il": "Aydın", "k": 24, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Alatepe", "i": "Efeler", "il": "Aydın", "k": 21, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Alavançı", "i": "Söke", "il": "Aydın", "k": 49, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Alaçam", "i": "Söke", "il": "Aydın", "k": 44, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Alcılar", "i": "Acıpayam", "il": "Denizli", "k": 165, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Alibeyli", "i": "Beyağaç", "il": "Denizli", "k": 204, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Alparslan", "i": "Ula", "il": "Muğla", "k": 128, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Altınkum", "i": "Didim", "il": "Aydın", "k": 80, "f": 12000, "t": "Belde"}, {"n": "Altıntas", "i": "Dalaman", "il": "Muğla", "k": 188, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Altıntop", "i": "Merkezefendi", "il": "Denizli", "k": 150, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Amasya", "i": "Bozdoğan", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Ambarcık", "i": "Efeler", "il": "Aydın", "k": 20, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Apa", "i": "Acıpayam", "il": "Denizli", "k": 175, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Armutalan", "i": "Marmaris", "il": "Muğla", "k": 153, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Armutlu", "i": "Efeler", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Arpaz", "i": "Çine", "il": "Aydın", "k": 41, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Arsaköy", "i": "Seydikemer", "il": "Muğla", "k": 216, "f": 17500, "t": "Köy/Mahalle"}, {"n": "Arslanlı", "i": "Kuyucak", "il": "Aydın", "k": 74, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Arzular", "i": "İncirliova", "il": "Aydın", "k": 40, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Arıcılar", "i": "Bozdoğan", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Arıkbaşı", "i": "Söke", "il": "Aydın", "k": 49, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Arıköy", "i": "Kale", "il": "Denizli", "k": 164, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Ataeymir", "i": "Karacasu", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Ataköy", "i": "Nazilli", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Atburgazı", "i": "Söke", "il": "Aydın", "k": 47, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Atça", "i": "Sultanhisar", "il": "Aydın", "k": 50, "f": 10500, "t": "Belde"}, {"n": "Avdan", "i": "Acıpayam", "il": "Denizli", "k": 169, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Avşar", "i": "Söke", "il": "Aydın", "k": 41, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Aydoğdu", "i": "Tavas", "il": "Denizli", "k": 138, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Aydın Merkez", "i": "Efeler", "il": "Aydın", "k": 22, "f": 9000, "t": "İl Merkezi"}, {"n": "Ağaçköy", "i": "Acıpayam", "il": "Denizli", "k": 166, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Aşağıbeyobası", "i": "Ula", "il": "Muğla", "k": 124, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Aşağıkayacık", "i": "Efeler", "il": "Aydın", "k": 19, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Aşağıseyit", "i": "Çal", "il": "Denizli", "k": 123, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Aşağıörencik", "i": "Nazilli", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Babacık", "i": "Sarayköy", "il": "Denizli", "k": 134, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Babadağ", "i": "Babadağ", "il": "Denizli", "k": 115, "f": 12500, "t": "İlçe Merkezi"}, {"n": "Bademli", "i": "Efeler", "il": "Aydın", "k": 35, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Bafa", "i": "Milas", "il": "Muğla", "k": 107, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Bahçeköy", "i": "Karacasu", "il": "Aydın", "k": 73, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Baklak", "i": "Bozkurt", "il": "Denizli", "k": 183, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Baklan", "i": "Baklan", "il": "Denizli", "k": 185, "f": 16000, "t": "İlçe Merkezi"}, {"n": "Bakılan", "i": "Çal", "il": "Denizli", "k": 126, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Balat", "i": "Didim", "il": "Aydın", "k": 81, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Ballıpınar", "i": "Çine", "il": "Aydın", "k": 45, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Baltaköy", "i": "Efeler", "il": "Aydın", "k": 18, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Balıkköy", "i": "Efeler", "il": "Aydın", "k": 30, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Barutçular", "i": "Merkezefendi", "il": "Denizli", "k": 146, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Batıköy", "i": "Didim", "il": "Aydın", "k": 89, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Bayat", "i": "Çivril", "il": "Denizli", "k": 191, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Bayır", "i": "Menteşe", "il": "Muğla", "k": 114, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Bağarası", "i": "Çine", "il": "Aydın", "k": 28, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Bağbaşı", "i": "Merkezefendi", "il": "Denizli", "k": 154, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Bağcılar", "i": "Koçarlı", "il": "Aydın", "k": 4, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Bağyaka", "i": "Bozkurt", "il": "Denizli", "k": 180, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Başaran", "i": "Karpuzlu", "il": "Aydın", "k": 22, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Başkarcı", "i": "Merkezefendi", "il": "Denizli", "k": 152, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Başçayır", "i": "Köşk", "il": "Aydın", "k": 60, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Bekilli", "i": "Bekilli", "il": "Denizli", "k": 165, "f": 15000, "t": "İlçe Merkezi"}, {"n": "Bekçiler", "i": "Seydikemer", "il": "Muğla", "k": 223, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Beldibi", "i": "Marmaris", "il": "Muğla", "k": 164, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Belen", "i": "Fethiye", "il": "Muğla", "k": 240, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Belenardıç", "i": "Kale", "il": "Denizli", "k": 172, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Belevi", "i": "Çameli", "il": "Denizli", "k": 210, "f": 17500, "t": "Köy/Mahalle"}, {"n": "Bencik", "i": "Menteşe", "il": "Muğla", "k": 104, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Benlik", "i": "Acıpayam", "il": "Denizli", "k": 185, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Bereketli", "i": "Merkezefendi", "il": "Denizli", "k": 148, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Beyağaç", "i": "Beyağaç", "il": "Denizli", "k": 190, "f": 16000, "t": "İlçe Merkezi"}, {"n": "Beydere", "i": "Nazilli", "il": "Aydın", "k": 77, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Beydilli", "i": "Çivril", "il": "Denizli", "k": 178, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Beyköy", "i": "Bozdoğan", "il": "Aydın", "k": 57, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Beyler", "i": "Köşk", "il": "Aydın", "k": 57, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Beylerli", "i": "Bekilli", "il": "Denizli", "k": 167, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Beyobası", "i": "Köyceğiz", "il": "Muğla", "k": 168, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Beçin", "i": "Milas", "il": "Muğla", "k": 95, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Bingeç", "i": "Karacasu", "il": "Aydın", "k": 70, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Birci", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Bitez", "i": "Bodrum", "il": "Muğla", "k": 154, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Bodrum", "i": "Bodrum", "il": "Muğla", "k": 140, "f": 14500, "t": "İlçe Merkezi"}, {"n": "Boydere", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Boynak", "i": "Karacasu", "il": "Aydın", "k": 70, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Bozalan", "i": "Milas", "il": "Muğla", "k": 103, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Bozarmut", "i": "Karacasu", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Bozburun", "i": "Marmaris", "il": "Muğla", "k": 185, "f": 16000, "t": "Belde"}, {"n": "Bozdoğan", "i": "Bozdoğan", "il": "Aydın", "k": 48, "f": 10500, "t": "İlçe Merkezi"}, {"n": "Bozkurt", "i": "Bozkurt", "il": "Denizli", "k": 175, "f": 15500, "t": "İlçe Merkezi"}, {"n": "Bozköy", "i": "Germencik", "il": "Aydın", "k": 49, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Bozüyük", "i": "Yenipazar", "il": "Aydın", "k": 70, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Boğaziçi", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Boğazköy", "i": "Bekilli", "il": "Denizli", "k": 163, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Bucakköy", "i": "Kuyucak", "il": "Aydın", "k": 72, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Budan", "i": "Güney", "il": "Denizli", "k": 168, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Buharkent", "i": "Buharkent", "il": "Aydın", "k": 80, "f": 12000, "t": "İlçe Merkezi"}, {"n": "Buldan", "i": "Buldan", "il": "Denizli", "k": 110, "f": 12500, "t": "İlçe Merkezi"}, {"n": "Böcek", "i": "Efeler", "il": "Aydın", "k": 17, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Bölmekaya", "i": "Buldan", "il": "Denizli", "k": 112, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Bördübet", "i": "Menteşe", "il": "Muğla", "k": 101, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Büyükdere", "i": "Koçarlı", "il": "Aydın", "k": 7, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Büyükkonak", "i": "Köşk", "il": "Aydın", "k": 40, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Büyükçakır", "i": "Karacasu", "il": "Aydın", "k": 78, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Bıçakçı", "i": "Çine", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Caferli", "i": "Kuşadası", "il": "Aydın", "k": 57, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Camiyanı", "i": "Karacasu", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Cankurtaran", "i": "Pamukkale", "il": "Denizli", "k": 154, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Cevher", "i": "Çameli", "il": "Denizli", "k": 223, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Cihanbey", "i": "Bozdoğan", "il": "Aydın", "k": 47, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Cincin", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Cumalı", "i": "Datça", "il": "Muğla", "k": 234, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Dalama", "i": "Efeler", "il": "Aydın", "k": 37, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Dalaman", "i": "Dalaman", "il": "Muğla", "k": 190, "f": 16000, "t": "İlçe Merkezi"}, {"n": "Dallıca", "i": "Köşk", "il": "Aydın", "k": 45, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Dalyan", "i": "Ortaca", "il": "Muğla", "k": 200, "f": 16500, "t": "Belde"}, {"n": "Damlıboğaz", "i": "Milas", "il": "Muğla", "k": 95, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Dampınar", "i": "Germencik", "il": "Aydın", "k": 48, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Danişment", "i": "Efeler", "il": "Aydın", "k": 33, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Darıveren", "i": "Acıpayam", "il": "Denizli", "k": 170, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Datça", "i": "Datça", "il": "Muğla", "k": 223, "f": 17500, "t": "İlçe Merkezi"}, {"n": "Davutlar", "i": "Kuşadası", "il": "Aydın", "k": 55, "f": 11000, "t": "Belde"}, {"n": "Dağal", "i": "Baklan", "il": "Denizli", "k": 181, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Dağdere", "i": "Kavaklıdere", "il": "Muğla", "k": 101, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Dağeymiri", "i": "Efeler", "il": "Aydın", "k": 24, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Dağpınar", "i": "Menteşe", "il": "Muğla", "k": 108, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Dağyeni", "i": "Germencik", "il": "Aydın", "k": 51, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Dedebağ", "i": "Acıpayam", "il": "Denizli", "k": 179, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Dedeköy", "i": "Koçarlı", "il": "Aydın", "k": 6, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Dedeler", "i": "Karacasu", "il": "Aydın", "k": 87, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Demirciler", "i": "Çine", "il": "Aydın", "k": 31, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Denizköy", "i": "Didim", "il": "Aydın", "k": 92, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Denizli", "i": "Merkezefendi", "il": "Denizli", "k": 150, "f": 14000, "t": "İl Merkezi"}, {"n": "Derbent", "i": "Buldan", "il": "Denizli", "k": 119, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Dereağzı", "i": "İncirliova", "il": "Aydın", "k": 32, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Derecik", "i": "Bozdoğan", "il": "Aydın", "k": 50, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Deregümü", "i": "Bozdoğan", "il": "Aydın", "k": 60, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Dereiçi", "i": "Çine", "il": "Aydın", "k": 29, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Dereköy", "i": "Efeler", "il": "Aydın", "k": 36, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Dereyenicesi", "i": "Karacasu", "il": "Aydın", "k": 87, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Dereçiftlik", "i": "Honaz", "il": "Denizli", "k": 159, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Develi", "i": "Pamukkale", "il": "Denizli", "k": 141, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Değirmen", "i": "Çardak", "il": "Denizli", "k": 201, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Değirmendere", "i": "Kale", "il": "Denizli", "k": 159, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Değirmenönü", "i": "Merkezefendi", "il": "Denizli", "k": 157, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Dibekdere", "i": "Milas", "il": "Muğla", "k": 96, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Didim", "i": "Didim", "il": "Aydın", "k": 78, "f": 12000, "t": "İlçe Merkezi"}, {"n": "Didimköy", "i": "Didim", "il": "Aydın", "k": 86, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Dikmen", "i": "Karacasu", "il": "Aydın", "k": 70, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Dodurga", "i": "Acıpayam", "il": "Denizli", "k": 182, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Dombayova", "i": "Beyağaç", "il": "Denizli", "k": 192, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Doğan", "i": "Efeler", "il": "Aydın", "k": 17, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Doğanbey", "i": "Söke", "il": "Aydın", "k": 37, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Dutağaç", "i": "Bozdoğan", "il": "Aydın", "k": 60, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Dörttepe", "i": "Milas", "il": "Muğla", "k": 101, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Döğüşbelen", "i": "Köyceğiz", "il": "Muğla", "k": 172, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Dündarlı", "i": "Çine", "il": "Aydın", "k": 36, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Düvertepe", "i": "Germencik", "il": "Aydın", "k": 53, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Düğerek", "i": "Menteşe", "il": "Muğla", "k": 115, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Efeler", "i": "Efeler", "il": "Aydın", "k": 22, "f": 9000, "t": "İlçe Merkezi"}, {"n": "Ekdere", "i": "Çine", "il": "Aydın", "k": 30, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Ekincik", "i": "Köyceğiz", "il": "Muğla", "k": 171, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Ekindere", "i": "Milas", "il": "Muğla", "k": 103, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Ekşiliyurt", "i": "Ortaca", "il": "Muğla", "k": 208, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Elcik", "i": "Dalaman", "il": "Muğla", "k": 190, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Eldeniz", "i": "Acıpayam", "il": "Denizli", "k": 178, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Eldenizli", "i": "Pamukkale", "il": "Denizli", "k": 145, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Emecik", "i": "Bozdoğan", "il": "Aydın", "k": 51, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Emirdoğan", "i": "Efeler", "il": "Aydın", "k": 23, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Emiryaka", "i": "Germencik", "il": "Aydın", "k": 51, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Erbeyli", "i": "İncirliova", "il": "Aydın", "k": 46, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Erenler", "i": "Seydikemer", "il": "Muğla", "k": 225, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Esenköy", "i": "Bozdoğan", "il": "Aydın", "k": 61, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Esenler", "i": "Bozkurt", "il": "Denizli", "k": 178, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Esentepe", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Eskihisar", "i": "Çine", "il": "Aydın", "k": 42, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Eskiköy", "i": "Ortaca", "il": "Muğla", "k": 208, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Evciler", "i": "Karpuzlu", "il": "Aydın", "k": 31, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Evsekler", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Eymir", "i": "Pamukkale", "il": "Denizli", "k": 141, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Eğrikavak", "i": "Efeler", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Faralya", "i": "Fethiye", "il": "Muğla", "k": 233, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Fatih", "i": "Buharkent", "il": "Aydın", "k": 84, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Fethiye", "i": "Fethiye", "il": "Muğla", "k": 230, "f": 18000, "t": "İlçe Merkezi"}, {"n": "Gaffarlar", "i": "Koçarlı", "il": "Aydın", "k": 15, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Garipköy", "i": "Tavas", "il": "Denizli", "k": 143, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Gedik", "i": "Nazilli", "il": "Aydın", "k": 78, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Gemiler", "i": "Fethiye", "il": "Muğla", "k": 232, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Gemiç", "i": "Çardak", "il": "Denizli", "k": 200, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Genceliler", "i": "Kuyucak", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Gerali", "i": "Sarayköy", "il": "Denizli", "k": 127, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Gerenkova", "i": "İncirliova", "il": "Aydın", "k": 37, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Germencik", "i": "Germencik", "il": "Aydın", "k": 42, "f": 10500, "t": "İlçe Merkezi"}, {"n": "Geyre", "i": "Karacasu", "il": "Aydın", "k": 68, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Girdev", "i": "Seydikemer", "il": "Muğla", "k": 221, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Göcek", "i": "Fethiye", "il": "Muğla", "k": 210, "f": 17000, "t": "Belde"}, {"n": "Gödrenli", "i": "Efeler", "il": "Aydın", "k": 37, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Gökbel", "i": "Kavaklıdere", "il": "Muğla", "k": 106, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Gökova", "i": "Ula", "il": "Muğla", "k": 124, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Gökpınar", "i": "Yatağan", "il": "Muğla", "k": 70, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Gökyaka", "i": "Kale", "il": "Denizli", "k": 161, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Gökçe", "i": "Menteşe", "il": "Muğla", "k": 119, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Gökçeler", "i": "Milas", "il": "Muğla", "k": 88, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Gökçeören", "i": "Güney", "il": "Denizli", "k": 165, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Gölbaşı", "i": "Babadağ", "il": "Denizli", "k": 127, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Gölcük", "i": "Efeler", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Göldere", "i": "Çameli", "il": "Denizli", "k": 206, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Gölemezli", "i": "Pamukkale", "il": "Denizli", "k": 155, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Gölenye", "i": "Ortaca", "il": "Muğla", "k": 190, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Gölgeli", "i": "Köyceğiz", "il": "Muğla", "k": 159, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Gölhisar", "i": "Efeler", "il": "Aydın", "k": 30, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Gölköy", "i": "Bodrum", "il": "Muğla", "k": 137, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Göltürkbükü", "i": "Bodrum", "il": "Muğla", "k": 149, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Görpeli", "i": "Karacasu", "il": "Aydın", "k": 79, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Gözkaya", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Gözler", "i": "Pamukkale", "il": "Denizli", "k": 143, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Gözpınar", "i": "Efeler", "il": "Aydın", "k": 24, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Göçmenköy", "i": "Bozdoğan", "il": "Aydın", "k": 56, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Göğerli", "i": "Germencik", "il": "Aydın", "k": 40, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Güdüşlü", "i": "Koçarlı", "il": "Aydın", "k": 14, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Gülağzı", "i": "Menteşe", "il": "Muğla", "k": 118, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Güllübahçe", "i": "Söke", "il": "Aydın", "k": 42, "f": 10500, "t": "Belde"}, {"n": "Güllüce", "i": "Köşk", "il": "Aydın", "k": 53, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Güllük", "i": "Milas", "il": "Muğla", "k": 105, "f": 14000, "t": "Belde"}, {"n": "Gümbet", "i": "Bodrum", "il": "Muğla", "k": 142, "f": 14500, "t": "Belde"}, {"n": "Gümüş", "i": "Beyağaç", "il": "Denizli", "k": 190, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Gümüşler", "i": "Merkezefendi", "il": "Denizli", "k": 152, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Gümüşlük", "i": "Bodrum", "il": "Muğla", "k": 148, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Gümüşsu", "i": "Çivril", "il": "Denizli", "k": 181, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Gümüşyeniköy", "i": "Germencik", "il": "Aydın", "k": 44, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Gümüşçay", "i": "Merkezefendi", "il": "Denizli", "k": 160, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Güney", "i": "Güney", "il": "Denizli", "k": 160, "f": 14500, "t": "İlçe Merkezi"}, {"n": "Güneykent", "i": "Babadağ", "il": "Denizli", "k": 114, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Güneyli", "i": "Menteşe", "il": "Muğla", "k": 109, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Güneyyaka", "i": "Söke", "il": "Aydın", "k": 41, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Güneşli", "i": "Seydikemer", "il": "Muğla", "k": 229, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Günlükbaşı", "i": "Fethiye", "il": "Muğla", "k": 245, "f": 19000, "t": "Köy/Mahalle"}, {"n": "Güre", "i": "Buldan", "il": "Denizli", "k": 116, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Gürköy", "i": "Dalaman", "il": "Muğla", "k": 201, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Gürlek", "i": "Bozdoğan", "il": "Aydın", "k": 61, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Gürpınar", "i": "Çivril", "il": "Denizli", "k": 186, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Güvendik", "i": "Germencik", "il": "Aydın", "k": 44, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Güvercinlik", "i": "Bodrum", "il": "Muğla", "k": 155, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Güzelbeyli", "i": "Karacasu", "il": "Aydın", "k": 77, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Güzelköy", "i": "Nazilli", "il": "Aydın", "k": 67, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Güzelpınar", "i": "Pamukkale", "il": "Denizli", "k": 151, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Güzelyurt", "i": "Ortaca", "il": "Muğla", "k": 192, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Güzelçamlı", "i": "Kuşadası", "il": "Aydın", "k": 58, "f": 11000, "t": "Belde"}, {"n": "Hacıeyüplü", "i": "Serinhisar", "il": "Denizli", "k": 169, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Hacıfeyzullah", "i": "Kuşadası", "il": "Aydın", "k": 45, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Hacıhamzalar", "i": "Koçarlı", "il": "Aydın", "k": 15, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Hacıosmanlar", "i": "İncirliova", "il": "Aydın", "k": 38, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Hacıpaşa", "i": "Çine", "il": "Aydın", "k": 41, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Halilbeyli", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Hallaçlar", "i": "Çine", "il": "Aydın", "k": 25, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Hamamdere", "i": "Karacasu", "il": "Aydın", "k": 70, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Hamitköy", "i": "Köyceğiz", "il": "Muğla", "k": 164, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Hamzabali", "i": "Yenipazar", "il": "Aydın", "k": 69, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Hamzabalı", "i": "Nazilli", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Hancılar", "i": "Çal", "il": "Denizli", "k": 131, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Hançalar", "i": "Baklan", "il": "Denizli", "k": 189, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Harmandalı", "i": "Karacasu", "il": "Aydın", "k": 74, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Haskaya", "i": "Nazilli", "il": "Aydın", "k": 64, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Hasköy", "i": "Nazilli", "il": "Aydın", "k": 78, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Haydar", "i": "Honaz", "il": "Denizli", "k": 166, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Haydarlı", "i": "Koçarlı", "il": "Aydın", "k": 12, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Hisar", "i": "Sarayköy", "il": "Denizli", "k": 141, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Hisaralan", "i": "Bozdoğan", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Hisarönü", "i": "Fethiye", "il": "Muğla", "k": 233, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Honaz", "i": "Honaz", "il": "Denizli", "k": 155, "f": 14000, "t": "İlçe Merkezi"}, {"n": "Horozköy", "i": "Efeler", "il": "Aydın", "k": 31, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Horsunlu", "i": "Kuyucak", "il": "Aydın", "k": 66, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Hürriyet", "i": "Dalaman", "il": "Muğla", "k": 199, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Hüsamettin", "i": "Sarayköy", "il": "Denizli", "k": 140, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Hıdırbeyli", "i": "Germencik", "il": "Aydın", "k": 39, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Hıdırlar", "i": "Köşk", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Hırka", "i": "Bekilli", "il": "Denizli", "k": 171, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Hızırşah", "i": "Datça", "il": "Muğla", "k": 235, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Ilıcabaşı", "i": "Efeler", "il": "Aydın", "k": 35, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Irganlı", "i": "Pamukkale", "il": "Denizli", "k": 150, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Işıklı", "i": "Efeler", "il": "Aydın", "k": 25, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kabaağaç", "i": "Seydikemer", "il": "Muğla", "k": 225, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Kabaca", "i": "Çine", "il": "Aydın", "k": 35, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kabak", "i": "Fethiye", "il": "Muğla", "k": 240, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Kabalak", "i": "Çine", "il": "Aydın", "k": 40, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Kabataş", "i": "Bozdoğan", "il": "Aydın", "k": 54, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kadıköy", "i": "Efeler", "il": "Aydın", "k": 30, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kafaca", "i": "Milas", "il": "Muğla", "k": 100, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Kahvederesi", "i": "Nazilli", "il": "Aydın", "k": 67, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Kaklık", "i": "Honaz", "il": "Denizli", "k": 159, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Kale", "i": "Kale", "il": "Denizli", "k": 160, "f": 14500, "t": "İlçe Merkezi"}, {"n": "Kalfaköy", "i": "Efeler", "il": "Aydın", "k": 27, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kapıkargın", "i": "Dalaman", "il": "Muğla", "k": 202, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Kapıkırı", "i": "Milas", "il": "Muğla", "k": 98, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Karaadilli", "i": "Çivril", "il": "Denizli", "k": 188, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Karaahmetler", "i": "Bozdoğan", "il": "Aydın", "k": 50, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Karaağaç", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Karaağaçlı", "i": "Germencik", "il": "Aydın", "k": 47, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Karabağlar", "i": "Menteşe", "il": "Muğla", "k": 101, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Karabörtlen", "i": "Menteşe", "il": "Muğla", "k": 106, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Karacaağaç", "i": "Dalaman", "il": "Muğla", "k": 192, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Karacasu", "i": "Karacasu", "il": "Aydın", "k": 72, "f": 11500, "t": "İlçe Merkezi"}, {"n": "Karacaören", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Karadere", "i": "Fethiye", "il": "Muğla", "k": 232, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Karadut", "i": "Koçarlı", "il": "Aydın", "k": 9, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Karagözler", "i": "İncirliova", "il": "Aydın", "k": 45, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Karahayıt", "i": "Efeler", "il": "Aydın", "k": 25, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Karahisar", "i": "Tavas", "il": "Denizli", "k": 144, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Karakaya", "i": "Bodrum", "il": "Muğla", "k": 153, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Karakova", "i": "Pamukkale", "il": "Denizli", "k": 143, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Karakurt", "i": "Merkezefendi", "il": "Denizli", "k": 162, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Karakuyu", "i": "Milas", "il": "Muğla", "k": 100, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Karaköy", "i": "Efeler", "il": "Aydın", "k": 21, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Karamanlı", "i": "Çameli", "il": "Denizli", "k": 208, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Karanlıkdere", "i": "Bozdoğan", "il": "Aydın", "k": 47, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Karapınar", "i": "Karacasu", "il": "Aydın", "k": 73, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Kararganlı", "i": "Tavas", "il": "Denizli", "k": 145, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Karataş", "i": "Pamukkale", "il": "Denizli", "k": 136, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Karateke", "i": "Honaz", "il": "Denizli", "k": 160, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Karaçakal", "i": "Yenipazar", "il": "Aydın", "k": 61, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Karaçulha", "i": "Fethiye", "il": "Muğla", "k": 245, "f": 19000, "t": "Köy/Mahalle"}, {"n": "Karcığan", "i": "Çine", "il": "Aydın", "k": 25, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kardeşköy", "i": "Efeler", "il": "Aydın", "k": 23, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kargınkürü", "i": "Dalaman", "il": "Muğla", "k": 188, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Karpuzlu", "i": "Karpuzlu", "il": "Aydın", "k": 22, "f": 9000, "t": "İlçe Merkezi"}, {"n": "Karıncalı", "i": "Nazilli", "il": "Aydın", "k": 64, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Kasaplar", "i": "Koçarlı", "il": "Aydın", "k": 7, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kastallı", "i": "Buldan", "il": "Denizli", "k": 114, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Kavacık", "i": "Bozdoğan", "il": "Aydın", "k": 59, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kavak", "i": "Çine", "il": "Aydın", "k": 28, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kavakarası", "i": "Köyceğiz", "il": "Muğla", "k": 171, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kavakbaşı", "i": "Pamukkale", "il": "Denizli", "k": 137, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Kavakköy", "i": "İncirliova", "il": "Aydın", "k": 36, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Kavaklı", "i": "Sultanhisar", "il": "Aydın", "k": 53, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Kavaklıdere", "i": "Kavaklıdere", "il": "Muğla", "k": 99, "f": 13500, "t": "İlçe Merkezi"}, {"n": "Kaya", "i": "Fethiye", "il": "Muğla", "k": 233, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Kayaağıl", "i": "Köşk", "il": "Aydın", "k": 46, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kayabaşı", "i": "Çine", "il": "Aydın", "k": 36, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kayaburnu", "i": "Bozdoğan", "il": "Aydın", "k": 58, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kayacık", "i": "Güney", "il": "Denizli", "k": 174, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kayadibi", "i": "Bekilli", "il": "Denizli", "k": 177, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Kayaköy", "i": "Menteşe", "il": "Muğla", "k": 108, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Kayalık", "i": "Merkezefendi", "il": "Denizli", "k": 163, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Kayran", "i": "Kuyucak", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Kayıhan", "i": "Pamukkale", "il": "Denizli", "k": 155, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Kelekçi", "i": "Acıpayam", "il": "Denizli", "k": 182, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Kemaliye", "i": "Ortaca", "il": "Muğla", "k": 210, "f": 17500, "t": "Köy/Mahalle"}, {"n": "Kemer", "i": "Fethiye", "il": "Muğla", "k": 239, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Kenger", "i": "Efeler", "il": "Aydın", "k": 27, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Ketendere", "i": "Kuyucak", "il": "Aydın", "k": 58, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Keçiborlu", "i": "Nazilli", "il": "Aydın", "k": 81, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Kirazlı", "i": "Kuşadası", "il": "Aydın", "k": 53, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Kisir", "i": "Söke", "il": "Aydın", "k": 38, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Knidos", "i": "Datça", "il": "Muğla", "k": 228, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Kocabaş", "i": "Çal", "il": "Denizli", "k": 132, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Kocadere", "i": "Bozdoğan", "il": "Aydın", "k": 47, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kocagür", "i": "Efeler", "il": "Aydın", "k": 29, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kocakonak", "i": "Çine", "il": "Aydın", "k": 32, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kocaköy", "i": "Serinhisar", "il": "Denizli", "k": 166, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kocaöz", "i": "Nazilli", "il": "Aydın", "k": 64, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Konacık", "i": "Bodrum", "il": "Muğla", "k": 141, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Konuklu", "i": "Efeler", "il": "Aydın", "k": 20, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Korucuk", "i": "Merkezefendi", "il": "Denizli", "k": 159, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Kozalaklı", "i": "Efeler", "il": "Aydın", "k": 28, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kozalan", "i": "Kavaklıdere", "il": "Muğla", "k": 100, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Kozağacı", "i": "Beyağaç", "il": "Denizli", "k": 198, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Kozağaç", "i": "Yatağan", "il": "Muğla", "k": 87, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Kozlar", "i": "Güney", "il": "Denizli", "k": 165, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kozpınar", "i": "Bozdoğan", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Koçak", "i": "Çine", "il": "Aydın", "k": 43, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Koçaklar", "i": "Köşk", "il": "Aydın", "k": 52, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Koçarlı", "i": "Koçarlı", "il": "Aydın", "k": 0, "f": 7500, "t": "İlçe Merkezi"}, {"n": "Koçgazi", "i": "Söke", "il": "Aydın", "k": 39, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Kullar", "i": "Koçarlı", "il": "Aydın", "k": 12, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kuloğullar", "i": "Efeler", "il": "Aydın", "k": 28, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kumafşarı", "i": "Acıpayam", "il": "Denizli", "k": 165, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kumlubük", "i": "Marmaris", "il": "Muğla", "k": 166, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kumluova", "i": "Fethiye", "il": "Muğla", "k": 234, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Kurtuluş", "i": "İncirliova", "il": "Aydın", "k": 34, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Kurudere", "i": "Buldan", "il": "Denizli", "k": 112, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Kuyucak", "i": "Kuyucak", "il": "Aydın", "k": 62, "f": 11000, "t": "İlçe Merkezi"}, {"n": "Kuyucular", "i": "Efeler", "il": "Aydın", "k": 36, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kuyulu", "i": "Efeler", "il": "Aydın", "k": 25, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kuşadası", "i": "Kuşadası", "il": "Aydın", "k": 50, "f": 11000, "t": "İlçe Merkezi"}, {"n": "Kuşlarbeleni", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kuşçular", "i": "Söke", "il": "Aydın", "k": 43, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Köprübaşı", "i": "Ula", "il": "Muğla", "k": 118, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Köprüler", "i": "İncirliova", "il": "Aydın", "k": 47, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Körteke", "i": "Yenipazar", "il": "Aydın", "k": 57, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Kötekli", "i": "Menteşe", "il": "Muğla", "k": 106, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Köyceğiz", "i": "Köyceğiz", "il": "Muğla", "k": 163, "f": 15000, "t": "İlçe Merkezi"}, {"n": "Köşk", "i": "Köşk", "il": "Aydın", "k": 45, "f": 10500, "t": "İlçe Merkezi"}, {"n": "Küçükbahçe", "i": "Merkezefendi", "il": "Denizli", "k": 143, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Küçükdere", "i": "Pamukkale", "il": "Denizli", "k": 148, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Kılavuz", "i": "Bozdoğan", "il": "Aydın", "k": 45, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kınık", "i": "Buldan", "il": "Denizli", "k": 112, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Kıralan", "i": "Çivril", "il": "Denizli", "k": 175, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kıran", "i": "Menteşe", "il": "Muğla", "k": 105, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Kıranyeri", "i": "Çine", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kırcağız", "i": "Milas", "il": "Muğla", "k": 92, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Kırtıklı", "i": "Çine", "il": "Aydın", "k": 32, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kırıklar", "i": "Efeler", "il": "Aydın", "k": 20, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kıyıkışlacık", "i": "Milas", "il": "Muğla", "k": 93, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Kızlan", "i": "Datça", "il": "Muğla", "k": 237, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Kızılağaç", "i": "Milas", "il": "Muğla", "k": 102, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Kızılbel", "i": "Fethiye", "il": "Muğla", "k": 227, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Kızılcaboluk", "i": "Sarayköy", "il": "Denizli", "k": 134, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Kızılcabölük", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kızılcagedik", "i": "Bozkurt", "il": "Denizli", "k": 173, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Kızılcaköy", "i": "Efeler", "il": "Aydın", "k": 19, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kızılcaova", "i": "Çine", "il": "Aydın", "k": 26, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Kızılcasöğüt", "i": "Bozdoğan", "il": "Aydın", "k": 44, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kızıldere", "i": "Buharkent", "il": "Aydın", "k": 88, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Kızılgüney", "i": "Bozdoğan", "il": "Aydın", "k": 46, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Kızılkaya", "i": "Koçarlı", "il": "Aydın", "k": 15, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Kızılyer", "i": "Honaz", "il": "Denizli", "k": 162, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Kızılören", "i": "Kavaklıdere", "il": "Muğla", "k": 98, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Letoon", "i": "Fethiye", "il": "Muğla", "k": 232, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Madenler", "i": "Yatağan", "il": "Muğla", "k": 71, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Madran", "i": "Bozdoğan", "il": "Aydın", "k": 48, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Malgaç", "i": "Sultanhisar", "il": "Aydın", "k": 52, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Malgaçemir", "i": "Germencik", "il": "Aydın", "k": 37, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Marmaris", "i": "Marmaris", "il": "Muğla", "k": 158, "f": 15000, "t": "İlçe Merkezi"}, {"n": "Mastavra", "i": "Nazilli", "il": "Aydın", "k": 69, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Mazıköy", "i": "Milas", "il": "Muğla", "k": 107, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Medet", "i": "Baklan", "il": "Denizli", "k": 181, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Menteş", "i": "Çivril", "il": "Denizli", "k": 191, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Menteşe", "i": "Menteşe", "il": "Muğla", "k": 104, "f": 14000, "t": "İlçe Merkezi"}, {"n": "Mergenli", "i": "Ortaca", "il": "Muğla", "k": 203, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Merkez", "i": "Kuyucak", "il": "Aydın", "k": 75, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Merkezefendi", "i": "Merkezefendi", "il": "Denizli", "k": 148, "f": 14000, "t": "İlçe Merkezi"}, {"n": "Mersinbeleni", "i": "Koçarlı", "il": "Aydın", "k": 5, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Mersindere", "i": "Didim", "il": "Aydın", "k": 79, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Mesudiye", "i": "Datça", "il": "Muğla", "k": 232, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Mesut", "i": "Germencik", "il": "Aydın", "k": 54, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Mesutlu", "i": "Efeler", "il": "Aydın", "k": 18, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Meşeli", "i": "Bozdoğan", "il": "Aydın", "k": 56, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Milas", "i": "Milas", "il": "Muğla", "k": 93, "f": 13500, "t": "İlçe Merkezi"}, {"n": "Minare", "i": "Fethiye", "il": "Muğla", "k": 233, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Mumcular", "i": "Bodrum", "il": "Muğla", "k": 147, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Mursallı", "i": "Germencik", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Musadağı", "i": "Bozdoğan", "il": "Aydın", "k": 62, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Musallar", "i": "Buldan", "il": "Denizli", "k": 105, "f": 12500, "t": "Köy/Mahalle"}, {"n": "Musluca", "i": "Efeler", "il": "Aydın", "k": 31, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Muğla", "i": "Çine", "il": "Aydın", "k": 27, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Muğla Merkez", "i": "Menteşe", "il": "Muğla", "k": 104, "f": 14000, "t": "İl Merkezi"}, {"n": "Mürseller", "i": "Menteşe", "il": "Muğla", "k": 103, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Naipli", "i": "Germencik", "il": "Aydın", "k": 44, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Nalbantlar", "i": "Söke", "il": "Aydın", "k": 35, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Nargedik", "i": "Bozdoğan", "il": "Aydın", "k": 45, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Nazilli", "i": "Nazilli", "il": "Aydın", "k": 67, "f": 11000, "t": "İlçe Merkezi"}, {"n": "Neşetiye", "i": "Germencik", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Nikfer", "i": "Tavas", "il": "Denizli", "k": 135, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Obacık", "i": "Germencik", "il": "Aydın", "k": 44, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Okçular", "i": "Ortaca", "il": "Muğla", "k": 194, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Orhaniye", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Ortaca", "i": "Ortaca", "il": "Muğla", "k": 195, "f": 16000, "t": "İlçe Merkezi"}, {"n": "Ortakent", "i": "Bodrum", "il": "Muğla", "k": 150, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Ortaklar", "i": "Germencik", "il": "Aydın", "k": 38, "f": 10000, "t": "Belde"}, {"n": "Ortakçı", "i": "Bozdoğan", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Ortaköy", "i": "Efeler", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Osmanbükü", "i": "Germencik", "il": "Aydın", "k": 37, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Osmancık", "i": "İncirliova", "il": "Aydın", "k": 48, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Osmanköy", "i": "Buldan", "il": "Denizli", "k": 111, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Otmanlar", "i": "Köyceğiz", "il": "Muğla", "k": 170, "f": 15500, "t": "Köy/Mahalle"}, {"n": "OvaEymir", "i": "Efeler", "il": "Aydın", "k": 24, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Ovabükü", "i": "Datça", "il": "Muğla", "k": 237, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Ovacık", "i": "Çine", "il": "Aydın", "k": 27, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Ovakent", "i": "Kuşadası", "il": "Aydın", "k": 59, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Ovayurt", "i": "Acıpayam", "il": "Denizli", "k": 168, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Oğuzlar", "i": "Bozdoğan", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Painir", "i": "Söke", "il": "Aydın", "k": 40, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Palamut", "i": "Karacasu", "il": "Aydın", "k": 73, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Palamutbükü", "i": "Datça", "il": "Muğla", "k": 234, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Pamukkale", "i": "Pamukkale", "il": "Denizli", "k": 140, "f": 13500, "t": "İlçe Merkezi"}, {"n": "Pamukören", "i": "Kuyucak", "il": "Aydın", "k": 70, "f": 11500, "t": "Belde"}, {"n": "Patlangıç", "i": "Fethiye", "il": "Muğla", "k": 235, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Paşaköy", "i": "Yenipazar", "il": "Aydın", "k": 64, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Paşalılar", "i": "Sarayköy", "il": "Denizli", "k": 122, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Peksimet", "i": "Bodrum", "il": "Muğla", "k": 147, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Pinarkent", "i": "Merkezefendi", "il": "Denizli", "k": 160, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Pirlibey", "i": "Nazilli", "il": "Aydın", "k": 74, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Pınarbaşı", "i": "Kavaklıdere", "il": "Muğla", "k": 96, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Pınardere", "i": "Efeler", "il": "Aydın", "k": 20, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Pınarkent", "i": "Honaz", "il": "Denizli", "k": 163, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Pınaryazı", "i": "Acıpayam", "il": "Denizli", "k": 167, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Reisköy", "i": "Germencik", "il": "Aydın", "k": 57, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Reşadiye", "i": "Datça", "il": "Muğla", "k": 231, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Sabuca", "i": "Nazilli", "il": "Aydın", "k": 65, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Sakarkaya", "i": "Milas", "il": "Muğla", "k": 88, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Salavatlı", "i": "Buharkent", "il": "Aydın", "k": 80, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Salkım", "i": "Kavaklıdere", "il": "Muğla", "k": 107, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Samanköy", "i": "Kavaklıdere", "il": "Muğla", "k": 107, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Sandalcık", "i": "Acıpayam", "il": "Denizli", "k": 169, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Sandıklı", "i": "İncirliova", "il": "Aydın", "k": 48, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Sandıma", "i": "Bodrum", "il": "Muğla", "k": 142, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Sapalan", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Sarayköy", "i": "Sarayköy", "il": "Denizli", "k": 127, "f": 13000, "t": "İlçe Merkezi"}, {"n": "Sarnıç", "i": "Menteşe", "il": "Muğla", "k": 100, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Sarıabat", "i": "Babadağ", "il": "Denizli", "k": 123, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Sarıgerme", "i": "Ortaca", "il": "Muğla", "k": 200, "f": 16500, "t": "Belde"}, {"n": "Sarıkemer", "i": "Köşk", "il": "Aydın", "k": 41, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Sarıkeçili", "i": "Karacasu", "il": "Aydın", "k": 84, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Satılar", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Savluk", "i": "Bozdoğan", "il": "Aydın", "k": 57, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Savrandere", "i": "Efeler", "il": "Aydın", "k": 29, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Savuca", "i": "Söke", "il": "Aydın", "k": 45, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Sazlı", "i": "Söke", "il": "Aydın", "k": 33, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Seki", "i": "Tavas", "il": "Denizli", "k": 139, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Selatin", "i": "Germencik", "il": "Aydın", "k": 38, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Selcen", "i": "Çal", "il": "Denizli", "k": 125, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Selimiye", "i": "Marmaris", "il": "Muğla", "k": 180, "f": 16000, "t": "Belde"}, {"n": "Selçuk", "i": "İzmir", "il": "İzmir", "k": 65, "f": 11000, "t": "İlçe"}, {"n": "Serbanşah", "i": "Çivril", "il": "Denizli", "k": 192, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Serinhisar", "i": "Serinhisar", "il": "Denizli", "k": 165, "f": 15000, "t": "İlçe Merkezi"}, {"n": "Servergazi", "i": "Merkezefendi", "il": "Denizli", "k": 152, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Serçeköy", "i": "Efeler", "il": "Aydın", "k": 19, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Serçin", "i": "Söke", "il": "Aydın", "k": 41, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Sevindikli", "i": "Nazilli", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Seydikemer", "i": "Seydikemer", "il": "Muğla", "k": 220, "f": 17500, "t": "İlçe Merkezi"}, {"n": "Silindir", "i": "Nazilli", "il": "Aydın", "k": 69, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Sinekçiler", "i": "İncirliova", "il": "Aydın", "k": 45, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Sirke", "i": "Bozdoğan", "il": "Aydın", "k": 59, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Sobuca", "i": "Koçarlı", "il": "Aydın", "k": 5, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Sofular", "i": "Söke", "il": "Aydın", "k": 31, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Soğucak", "i": "Karpuzlu", "il": "Aydın", "k": 19, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Soğukoluk", "i": "Çine", "il": "Aydın", "k": 40, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Stratonikeia", "i": "Yatağan", "il": "Muğla", "k": 81, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Sultanhisar", "i": "Sultanhisar", "il": "Aydın", "k": 55, "f": 11000, "t": "İlçe Merkezi"}, {"n": "Sultaniye", "i": "Köyceğiz", "il": "Muğla", "k": 176, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Söke", "i": "Söke", "il": "Aydın", "k": 36, "f": 10000, "t": "İlçe Merkezi"}, {"n": "Söğüt", "i": "Beyağaç", "il": "Denizli", "k": 185, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Söğütcük", "i": "Bozdoğan", "il": "Aydın", "k": 51, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Süller", "i": "Çal", "il": "Denizli", "k": 115, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Sındı", "i": "Datça", "il": "Muğla", "k": 235, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Sıralılar", "i": "Efeler", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Sırma", "i": "Acıpayam", "il": "Denizli", "k": 182, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Sırığıtlık", "i": "Buldan", "il": "Denizli", "k": 117, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Tabaklı", "i": "Kale", "il": "Denizli", "k": 168, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Tavas", "i": "Tavas", "il": "Denizli", "k": 130, "f": 13000, "t": "İlçe Merkezi"}, {"n": "Taşköy", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Taşlıburun", "i": "Dalaman", "il": "Muğla", "k": 189, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Taşlıca", "i": "Marmaris", "il": "Muğla", "k": 170, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Taşoluk", "i": "Kuyucak", "il": "Aydın", "k": 74, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Taşçılar", "i": "Çameli", "il": "Denizli", "k": 224, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Tekeler", "i": "Karpuzlu", "il": "Aydın", "k": 31, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Tekeli", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Tekke", "i": "Sarayköy", "il": "Denizli", "k": 131, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Tepearası", "i": "Dalaman", "il": "Muğla", "k": 199, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Tepecik", "i": "Efeler", "il": "Aydın", "k": 17, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Tepeköy", "i": "Efeler", "il": "Aydın", "k": 36, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Terziler", "i": "Efeler", "il": "Aydın", "k": 28, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Timinciler", "i": "Koçarlı", "il": "Aydın", "k": 5, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Tire", "i": "İzmir", "il": "İzmir", "k": 75, "f": 12000, "t": "İlçe"}, {"n": "Toklar", "i": "Nazilli", "il": "Aydın", "k": 81, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Tokça", "i": "Çal", "il": "Denizli", "k": 118, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Toparlar", "i": "Köyceğiz", "il": "Muğla", "k": 158, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Topuk", "i": "Bozkurt", "il": "Denizli", "k": 182, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Topçam", "i": "Çine", "il": "Aydın", "k": 42, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Torba", "i": "Bodrum", "il": "Muğla", "k": 139, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Tosunlar", "i": "Baklan", "il": "Denizli", "k": 191, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Turanlar", "i": "Germencik", "il": "Aydın", "k": 44, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Turgut", "i": "Marmaris", "il": "Muğla", "k": 170, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Turgutköy", "i": "Karpuzlu", "il": "Aydın", "k": 34, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Turgutreis", "i": "Bodrum", "il": "Muğla", "k": 155, "f": 15000, "t": "Belde"}, {"n": "Turunç", "i": "Marmaris", "il": "Muğla", "k": 170, "f": 15500, "t": "Belde"}, {"n": "Tuzabat", "i": "Milas", "il": "Muğla", "k": 100, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Tuzburgazı", "i": "Söke", "il": "Aydın", "k": 45, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Tuzla", "i": "Baklan", "il": "Denizli", "k": 186, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Türkbükü", "i": "Bodrum", "il": "Muğla", "k": 155, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Tınas", "i": "Yatağan", "il": "Muğla", "k": 77, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Tığıllar", "i": "Koçarlı", "il": "Aydın", "k": 13, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Ula", "i": "Ula", "il": "Muğla", "k": 121, "f": 14000, "t": "İlçe Merkezi"}, {"n": "Ulukent", "i": "Tavas", "il": "Denizli", "k": 139, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Umcular", "i": "Çine", "il": "Aydın", "k": 29, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Umurlu", "i": "Efeler", "il": "Aydın", "k": 20, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Uzundere", "i": "Kuyucak", "il": "Aydın", "k": 58, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Uzunkum", "i": "Germencik", "il": "Aydın", "k": 39, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Uzunlar", "i": "Bozdoğan", "il": "Aydın", "k": 60, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Uzunpınar", "i": "Pamukkale", "il": "Denizli", "k": 143, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Vakıf", "i": "Tavas", "il": "Denizli", "k": 139, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Yahşi", "i": "Bodrum", "il": "Muğla", "k": 135, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Yaka", "i": "Datça", "il": "Muğla", "k": 223, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Yakaköy", "i": "Bozdoğan", "il": "Aydın", "k": 43, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Yalıkavak", "i": "Bodrum", "il": "Muğla", "k": 152, "f": 15000, "t": "Belde"}, {"n": "Yalıköy", "i": "Didim", "il": "Aydın", "k": 90, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Yamalak", "i": "Kuyucak", "il": "Aydın", "k": 67, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Yangı", "i": "Köyceğiz", "il": "Muğla", "k": 176, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Yanıklar", "i": "Fethiye", "il": "Muğla", "k": 242, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Yarıkkaya", "i": "Güney", "il": "Denizli", "k": 158, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Yassıhüyük", "i": "Acıpayam", "il": "Denizli", "k": 166, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Yatağan", "i": "Yatağan", "il": "Muğla", "k": 75, "f": 12000, "t": "İlçe Merkezi"}, {"n": "Yavansu", "i": "Kuşadası", "il": "Aydın", "k": 54, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Yavuzköy", "i": "Buharkent", "il": "Aydın", "k": 89, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Yaylacık", "i": "Bekilli", "il": "Denizli", "k": 173, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Yaylakuştur", "i": "Kuşadası", "il": "Aydın", "k": 58, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Yaylaköy", "i": "Bozdoğan", "il": "Aydın", "k": 46, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Yaylalı", "i": "Çine", "il": "Aydın", "k": 29, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Yazıdere", "i": "İncirliova", "il": "Aydın", "k": 37, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Yazıköy", "i": "Datça", "il": "Muğla", "k": 232, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Yazır", "i": "Karacasu", "il": "Aydın", "k": 81, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Yazırlı", "i": "Yenipazar", "il": "Aydın", "k": 55, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Yağcıdere", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Yağcılar", "i": "Efeler", "il": "Aydın", "k": 35, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Yağhanlı", "i": "Koçarlı", "il": "Aydın", "k": 15, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Yağlıpınar", "i": "Karpuzlu", "il": "Aydın", "k": 20, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Yenice", "i": "Karacasu", "il": "Aydın", "k": 71, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Yenicekent", "i": "Buldan", "il": "Denizli", "k": 115, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Yeniköy", "i": "İncirliova", "il": "Aydın", "k": 45, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Yenipazar", "i": "Yenipazar", "il": "Aydın", "k": 58, "f": 11000, "t": "İlçe Merkezi"}, {"n": "Yerkesik", "i": "Menteşe", "il": "Muğla", "k": 106, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Yeşilbağcılar", "i": "Yatağan", "il": "Muğla", "k": 90, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Yeşilbel", "i": "Seydikemer", "il": "Muğla", "k": 225, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Yeşildere", "i": "Acıpayam", "il": "Denizli", "k": 176, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Yeşildon", "i": "Ortaca", "il": "Muğla", "k": 204, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Yeşilköy", "i": "Söke", "il": "Aydın", "k": 50, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Yeşilova", "i": "Buldan", "il": "Denizli", "k": 113, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Yeşiltepe", "i": "Didim", "il": "Aydın", "k": 79, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Yeşilyayla", "i": "Merkezefendi", "il": "Denizli", "k": 151, "f": 14500, "t": "Köy/Mahalle"}, {"n": "Yeşilyurt", "i": "Çine", "il": "Aydın", "k": 40, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Yeşilçam", "i": "Buharkent", "il": "Aydın", "k": 75, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Yeşilüzümlü", "i": "Fethiye", "il": "Muğla", "k": 227, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Yolboyu", "i": "Bozdoğan", "il": "Aydın", "k": 51, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Yollarüstü", "i": "Karacasu", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Yolüstü", "i": "Çine", "il": "Aydın", "k": 42, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Yorga", "i": "Tavas", "il": "Denizli", "k": 131, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Yukarı", "i": "Köşk", "il": "Aydın", "k": 45, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Yukarıdağdere", "i": "Çivril", "il": "Denizli", "k": 181, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Yukarıkayacık", "i": "Efeler", "il": "Aydın", "k": 19, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Yukarıseyit", "i": "Çal", "il": "Denizli", "k": 123, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Yukarıörencik", "i": "Nazilli", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Yumrutaş", "i": "Acıpayam", "il": "Denizli", "k": 183, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Yusufça", "i": "Çameli", "il": "Denizli", "k": 218, "f": 17500, "t": "Köy/Mahalle"}, {"n": "Yuvaca", "i": "Söke", "il": "Aydın", "k": 49, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Yöreler", "i": "Bozdoğan", "il": "Aydın", "k": 63, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Yörükler", "i": "Kuyucak", "il": "Aydın", "k": 58, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Yürükhasanlar", "i": "Nazilli", "il": "Aydın", "k": 81, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Yılanlar", "i": "Çardak", "il": "Denizli", "k": 209, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Yılanlı", "i": "Bozdoğan", "il": "Aydın", "k": 60, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Yılmazköy", "i": "Efeler", "il": "Aydın", "k": 23, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Zaferler", "i": "Köyceğiz", "il": "Muğla", "k": 170, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Zeytinköy", "i": "Efeler", "il": "Aydın", "k": 18, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Züğürtlük", "i": "Bozdoğan", "il": "Aydın", "k": 53, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Çakmar", "i": "Koçarlı", "il": "Aydın", "k": 15, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çakırbeyli", "i": "Koçarlı", "il": "Aydın", "k": 9, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çakırhöyük", "i": "Köşk", "il": "Aydın", "k": 42, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Çakırlar", "i": "Buldan", "il": "Denizli", "k": 111, "f": 13000, "t": "Köy/Mahalle"}, {"n": "Çal", "i": "Çal", "il": "Denizli", "k": 120, "f": 12500, "t": "İlçe Merkezi"}, {"n": "Çallı", "i": "Koçarlı", "il": "Aydın", "k": 6, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çaltı", "i": "Çine", "il": "Aydın", "k": 45, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Çaltıözü", "i": "Dalaman", "il": "Muğla", "k": 192, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Çalış", "i": "Fethiye", "il": "Muğla", "k": 239, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Çam", "i": "Bozkurt", "il": "Denizli", "k": 177, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Çamarası", "i": "Karacasu", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Çambaşı", "i": "Güney", "il": "Denizli", "k": 157, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Çameli", "i": "Çameli", "il": "Denizli", "k": 210, "f": 17000, "t": "İlçe Merkezi"}, {"n": "Çamköy", "i": "Bozdoğan", "il": "Aydın", "k": 51, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Çamlı", "i": "Marmaris", "il": "Muğla", "k": 162, "f": 15000, "t": "Köy/Mahalle"}, {"n": "Çamlıca", "i": "Ula", "il": "Muğla", "k": 129, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Çamlık", "i": "Germencik", "il": "Aydın", "k": 57, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Çanakçı", "i": "Karacasu", "il": "Aydın", "k": 81, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Çandır", "i": "Köyceğiz", "il": "Muğla", "k": 175, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Çapahasan", "i": "Nazilli", "il": "Aydın", "k": 78, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Çardak", "i": "Çardak", "il": "Denizli", "k": 195, "f": 16500, "t": "İlçe Merkezi"}, {"n": "Çarıklar", "i": "Yenipazar", "il": "Aydın", "k": 59, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Çarşamba", "i": "Çivril", "il": "Denizli", "k": 187, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Çataloba", "i": "Baklan", "il": "Denizli", "k": 184, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Çavdar", "i": "Söke", "il": "Aydın", "k": 39, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Çayboyu", "i": "Kavaklıdere", "il": "Muğla", "k": 98, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Çaykenarı", "i": "Seydikemer", "il": "Muğla", "k": 227, "f": 18000, "t": "Köy/Mahalle"}, {"n": "Çayyüzü", "i": "Efeler", "il": "Aydın", "k": 19, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çağlayan", "i": "Dalaman", "il": "Muğla", "k": 198, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Çerçin", "i": "Çine", "il": "Aydın", "k": 41, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Çetibeli", "i": "Marmaris", "il": "Muğla", "k": 165, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Çeşmeköy", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çeştepe", "i": "Efeler", "il": "Aydın", "k": 25, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çiftlik", "i": "Bozdoğan", "il": "Aydın", "k": 47, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Çiftlikköy", "i": "Efeler", "il": "Aydın", "k": 23, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çiftçiler", "i": "Karpuzlu", "il": "Aydın", "k": 25, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çine", "i": "Çine", "il": "Aydın", "k": 30, "f": 9500, "t": "İlçe Merkezi"}, {"n": "Çivril", "i": "Çivril", "il": "Denizli", "k": 180, "f": 15500, "t": "İlçe Merkezi"}, {"n": "Çiçekli", "i": "Beyağaç", "il": "Denizli", "k": 189, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Çobanisa", "i": "Köşk", "il": "Aydın", "k": 47, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Çobanlar", "i": "Kuyucak", "il": "Aydın", "k": 61, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Çomakdağ", "i": "Karacasu", "il": "Aydın", "k": 68, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Çoğaşlı", "i": "Çal", "il": "Denizli", "k": 135, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Çubukçu", "i": "Acıpayam", "il": "Denizli", "k": 173, "f": 15500, "t": "Köy/Mahalle"}, {"n": "Çulhalar", "i": "Koçarlı", "il": "Aydın", "k": 6, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Çürüksu", "i": "Çivril", "il": "Denizli", "k": 193, "f": 16500, "t": "Köy/Mahalle"}, {"n": "Çınarköy", "i": "Çine", "il": "Aydın", "k": 44, "f": 10000, "t": "Köy/Mahalle"}, {"n": "Çırpı", "i": "Yatağan", "il": "Muğla", "k": 85, "f": 12000, "t": "Köy/Mahalle"}, {"n": "Çıtlık", "i": "Kavaklıdere", "il": "Muğla", "k": 98, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Çığlık", "i": "Çameli", "il": "Denizli", "k": 213, "f": 17500, "t": "Köy/Mahalle"}, {"n": "Ölüdeniz", "i": "Fethiye", "il": "Muğla", "k": 240, "f": 18500, "t": "Belde"}, {"n": "Ören", "i": "Milas", "il": "Muğla", "k": 105, "f": 13500, "t": "Köy/Mahalle"}, {"n": "Örentaş", "i": "Germencik", "il": "Aydın", "k": 39, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Örmeler", "i": "Bozdoğan", "il": "Aydın", "k": 62, "f": 11000, "t": "Köy/Mahalle"}, {"n": "Örtülü", "i": "Sarayköy", "il": "Denizli", "k": 139, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Özbaşı", "i": "Söke", "il": "Aydın", "k": 51, "f": 10500, "t": "Köy/Mahalle"}, {"n": "Özlüce", "i": "Menteşe", "il": "Muğla", "k": 99, "f": 14000, "t": "Köy/Mahalle"}, {"n": "Üzümlü", "i": "Fethiye", "il": "Muğla", "k": 235, "f": 18500, "t": "Köy/Mahalle"}, {"n": "Üçkuyu", "i": "Çardak", "il": "Denizli", "k": 203, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Üçler", "i": "Merkezefendi", "il": "Denizli", "k": 147, "f": 14500, "t": "Köy/Mahalle"}, {"n": "İkizdere", "i": "Çine", "il": "Aydın", "k": 44, "f": 10000, "t": "Köy/Mahalle"}, {"n": "İkiçeşmelik", "i": "Kuşadası", "il": "Aydın", "k": 57, "f": 11000, "t": "Köy/Mahalle"}, {"n": "İlyasdere", "i": "Efeler", "il": "Aydın", "k": 17, "f": 9000, "t": "Köy/Mahalle"}, {"n": "İmamköy", "i": "Efeler", "il": "Aydın", "k": 22, "f": 9000, "t": "Köy/Mahalle"}, {"n": "İncealan", "i": "Karpuzlu", "il": "Aydın", "k": 24, "f": 9000, "t": "Köy/Mahalle"}, {"n": "İncedere", "i": "Bozkurt", "il": "Denizli", "k": 175, "f": 15500, "t": "Köy/Mahalle"}, {"n": "İnceler", "i": "Baklan", "il": "Denizli", "k": 191, "f": 16500, "t": "Köy/Mahalle"}, {"n": "İncesu", "i": "Sarayköy", "il": "Denizli", "k": 131, "f": 14000, "t": "Köy/Mahalle"}, {"n": "İnceğiz", "i": "Beyağaç", "il": "Denizli", "k": 190, "f": 16500, "t": "Köy/Mahalle"}, {"n": "İncirköy", "i": "Dalaman", "il": "Muğla", "k": 186, "f": 16000, "t": "Köy/Mahalle"}, {"n": "İncirliova", "i": "İncirliova", "il": "Aydın", "k": 35, "f": 10000, "t": "İlçe Merkezi"}, {"n": "İnlice", "i": "Fethiye", "il": "Muğla", "k": 241, "f": 18500, "t": "Köy/Mahalle"}, {"n": "İsabey", "i": "Çal", "il": "Denizli", "k": 127, "f": 13500, "t": "Köy/Mahalle"}, {"n": "İsabeyli", "i": "Köşk", "il": "Aydın", "k": 55, "f": 10500, "t": "Köy/Mahalle"}, {"n": "İsaören", "i": "Çivril", "il": "Denizli", "k": 176, "f": 16000, "t": "Köy/Mahalle"}, {"n": "İzmir", "i": "İzmir", "il": "İzmir", "k": 150, "f": 14000, "t": "İl Merkezi"}, {"n": "İçmeler", "i": "Marmaris", "il": "Muğla", "k": 165, "f": 15500, "t": "Belde"}, {"n": "İğdir", "i": "Çivril", "il": "Denizli", "k": 183, "f": 16000, "t": "Köy/Mahalle"}, {"n": "Şahinciler", "i": "Koçarlı", "il": "Aydın", "k": 7, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Şahinler", "i": "Çine", "il": "Aydın", "k": 27, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Şahnalı", "i": "Efeler", "il": "Aydın", "k": 26, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Şenköy", "i": "Koçarlı", "il": "Aydın", "k": 3, "f": 9000, "t": "Köy/Mahalle"}, {"n": "Şerefler", "i": "Dalaman", "il": "Muğla", "k": 199, "f": 17000, "t": "Köy/Mahalle"}, {"n": "Şevketiye", "i": "Efeler", "il": "Aydın", "k": 37, "f": 9500, "t": "Köy/Mahalle"}, {"n": "Şimşelli", "i": "Nazilli", "il": "Aydın", "k": 80, "f": 11500, "t": "Köy/Mahalle"}, {"n": "Şirinköy", "i": "Merkezefendi", "il": "Denizli", "k": 146, "f": 14500, "t": "Köy/Mahalle"}];
 
-  // Denizli
-  {name:"Denizli",il:"Denizli",km:150,fiyat:14000},
-  {name:"Pamukkale",il:"Denizli",km:140,fiyat:13500},
-  {name:"Sarayköy",il:"Denizli",km:127,fiyat:13000},
-  {name:"Buldan",il:"Denizli",km:110,fiyat:12500},
-  {name:"Tavas",il:"Denizli",km:130,fiyat:13000},
-  {name:"Acıpayam",il:"Denizli",km:170,fiyat:15000},
-  {name:"Çal",il:"Denizli",km:120,fiyat:12500},
-  {name:"Çivril",il:"Denizli",km:180,fiyat:15500},
-  {name:"Honaz",il:"Denizli",km:155,fiyat:14000},
-  {name:"Kale",il:"Denizli",km:160,fiyat:14500},
-
-  // Muğla
-  {name:"Muğla",il:"Muğla",km:104,fiyat:14000},
-  {name:"Menteşe",il:"Muğla",km:104,fiyat:14000},
-  {name:"Marmaris",il:"Muğla",km:158,fiyat:15000},
-  {name:"Bodrum",il:"Muğla",km:140,fiyat:14500},
-  {name:"Milas",il:"Muğla",km:93,fiyat:13500},
-  {name:"Yatağan",il:"Muğla",km:75,fiyat:12000},
-  {name:"Fethiye",il:"Muğla",km:230,fiyat:18000},
-  {name:"Dalaman",il:"Muğla",km:190,fiyat:16000},
-  {name:"Köyceğiz",il:"Muğla",km:163,fiyat:15000},
-  {name:"Ortaca",il:"Muğla",km:195,fiyat:16000},
-  {name:"Datça",il:"Muğla",km:223,fiyat:17500},
-  {name:"Ula",il:"Muğla",km:121,fiyat:14000},
-  {name:"Kavaklıdere",il:"Muğla",km:99,fiyat:13500},
-  {name:"Seydikemer",il:"Muğla",km:220,fiyat:17500},
-
-  // İzmir
-  {name:"İzmir",il:"İzmir",km:150,fiyat:14000},
-  {name:"Selçuk",il:"İzmir",km:65,fiyat:11000},
-  {name:"Tire",il:"İzmir",km:75,fiyat:12000},
-  {name:"Ödemiş",il:"İzmir",km:95,fiyat:13000},
-  {name:"Torbalı",il:"İzmir",km:110,fiyat:12500},
-  {name:"Menderes",il:"İzmir",km:100,fiyat:13000},
-  {name:"Buca",il:"İzmir",km:140,fiyat:13500},
-  {name:"Karabağlar",il:"İzmir",km:142,fiyat:14000},
-
-  // Burdur / Isparta
-  {name:"Burdur",il:"Burdur",km:200,fiyat:16500},
-  {name:"Isparta",il:"Isparta",km:230,fiyat:18000},
-
-  // Manisa
-  {name:"Manisa",il:"Manisa",km:190,fiyat:16000},
-  {name:"Salihli",il:"Manisa",km:160,fiyat:14500},
-  {name:"Alaşehir",il:"Manisa",km:145,fiyat:14000},
-
-  // Afyon
-  {name:"Afyon",il:"Afyon",km:250,fiyat:19000},
-
-  // Antalya
-  {name:"Antalya",il:"Antalya",km:300,fiyat:21000},
-];
-
-const popularLocs = ["Aydın Merkez","Söke","Nazilli","Davutlar","Denizli","Muğla","Marmaris","Bodrum"];
-
-function formatPrice(n){return n.toLocaleString('tr-TR');}
-function calcTime(km){
-  const mins = Math.round(km * 1.1);
-  if(mins<60) return mins+" dk";
-  const h=Math.floor(mins/60);
-  const m=mins%60;
-  return h+" sa "+m+" dk";
-}
-
-// Populate popular grid
+const pop=["Aydın Merkez","Söke","Nazilli","Davutlar","Kuşadası","Denizli","Muğla Merkez","Marmaris","Didim","Buharkent","Çine","Pamukkale"];
 const grid=document.getElementById('popularGrid');
-const icons=["📍","🏖","🏛","🌊","🏔","⛰","🌅","⚓"];
-popularLocs.forEach((name,i)=>{
-  const loc=locations.find(l=>l.name===name);
-  if(!loc)return;
-  const div=document.createElement('div');
-  div.className='info-card';
-  div.innerHTML=`
-    <div class="ic-icon">${icons[i%icons.length]}</div>
-    <div class="ic-name">${loc.name}</div>
-    <div class="ic-price">${formatPrice(loc.fiyat)} ₺</div>
-    <div class="ic-dist">${loc.km} km</div>
-  `;
-  div.onclick=()=>showResult(loc);
-  grid.appendChild(div);
+pop.forEach(name=>{
+const loc=L.find(l=>l.n===name);
+if(!loc)return;
+const d=document.createElement('div');
+d.className='info-card';
+d.innerHTML=`<div class="ic-name">${loc.n}</div><div class="ic-price">${loc.f.toLocaleString('tr-TR')} ₺</div><div class="ic-dist">${loc.k} km</div>`;
+d.onclick=()=>showResult(loc);
+grid.appendChild(d);
 });
 
-// Search functionality
-const searchInput=document.getElementById('searchInput');
-const searchResults=document.getElementById('searchResults');
-const resultCard=document.getElementById('resultCard');
-let selectedIndex=-1;
+const si=document.getElementById('searchInput');
+const sr=document.getElementById('searchResults');
+const rc=document.getElementById('resultCard');
+let sel=-1;
 
-function normalize(str){
-  return str.toLowerCase()
-    .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i')
-    .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u')
-    .replace(/Ç/g,'c').replace(/Ğ/g,'g').replace(/İ/g,'i')
-    .replace(/Ö/g,'o').replace(/Ş/g,'s').replace(/Ü/g,'u');
+function norm(s){
+return s.toLowerCase()
+.replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i')
+.replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u')
+.replace(/Ç/g,'c').replace(/Ğ/g,'g').replace(/İ/g,'i')
+.replace(/Ö/g,'o').replace(/Ş/g,'s').replace(/Ü/g,'u');
 }
 
-searchInput.addEventListener('input',function(){
-  const q=normalize(this.value.trim());
-  selectedIndex=-1;
-  if(q.length<1){
-    searchResults.classList.remove('active');
-    return;
-  }
-  const matches=locations.filter(l=>
-    normalize(l.name).includes(q)||normalize(l.il).includes(q)
-  ).slice(0,8);
-
-  if(matches.length===0){
-    searchResults.innerHTML='<div class="no-result">Sonuç bulunamadı</div>';
-    searchResults.classList.add('active');
-    return;
-  }
-
-  searchResults.innerHTML=matches.map((m,i)=>`
-    <div class="search-item" data-index="${i}">
-      <div>
-        <span class="search-item-name">${m.name}</span>
-        <span style="font-size:0.75rem;color:var(--text-muted);margin-left:6px">${m.il}</span>
-      </div>
-      <span class="search-item-dist">${m.km} km</span>
-    </div>
-  `).join('');
-  searchResults.classList.add('active');
-
-  searchResults.querySelectorAll('.search-item').forEach((el,i)=>{
-    el.addEventListener('click',()=>showResult(matches[i]));
-  });
+si.addEventListener('input',function(){
+const q=norm(this.value.trim());
+sel=-1;
+if(q.length<1){sr.classList.remove('active');return}
+const m=L.filter(l=>norm(l.n).includes(q)||norm(l.i).includes(q)||norm(l.il).includes(q)).slice(0,10);
+if(!m.length){sr.innerHTML='<div class="no-result">Sonuç bulunamadı</div>';sr.classList.add('active');return}
+sr.innerHTML=m.map((x,i)=>`
+<div class="search-item" data-i="${i}">
+<div class="search-item-left">
+<span class="search-item-name">${x.n}</span>
+<span class="search-item-sub">${x.i} / ${x.il} &bull; ${x.t}</span>
+</div>
+<div class="search-item-right">
+<div class="search-item-price">${x.f.toLocaleString('tr-TR')} ₺</div>
+<div class="search-item-dist">${x.k} km</div>
+</div>
+</div>`).join('');
+sr.classList.add('active');
+sr.querySelectorAll('.search-item').forEach((el,i)=>el.addEventListener('click',()=>showResult(m[i])));
 });
 
-searchInput.addEventListener('keydown',function(e){
-  const items=searchResults.querySelectorAll('.search-item');
-  if(!items.length)return;
-
-  if(e.key==='ArrowDown'){
-    e.preventDefault();
-    selectedIndex=Math.min(selectedIndex+1,items.length-1);
-    items.forEach((el,i)=>el.classList.toggle('selected',i===selectedIndex));
-  }else if(e.key==='ArrowUp'){
-    e.preventDefault();
-    selectedIndex=Math.max(selectedIndex-1,0);
-    items.forEach((el,i)=>el.classList.toggle('selected',i===selectedIndex));
-  }else if(e.key==='Enter'&&selectedIndex>=0){
-    e.preventDefault();
-    items[selectedIndex].click();
-  }
+si.addEventListener('keydown',function(e){
+const items=sr.querySelectorAll('.search-item');
+if(!items.length)return;
+if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(sel+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('selected',i===sel))}
+else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);items.forEach((el,i)=>el.classList.toggle('selected',i===sel))}
+else if(e.key==='Enter'&&sel>=0){e.preventDefault();items[sel].click()}
 });
 
-document.addEventListener('click',function(e){
-  if(!e.target.closest('.search-section')){
-    searchResults.classList.remove('active');
-  }
-});
+document.addEventListener('click',e=>{if(!e.target.closest('.search-section'))sr.classList.remove('active')});
+
+function calcTime(km){
+const m=Math.max(5,Math.round(km*1.1));
+if(m<60)return m+' dk';
+return Math.floor(m/60)+' sa '+m%60+' dk';
+}
 
 function showResult(loc){
-  searchInput.value=loc.name;
-  searchResults.classList.remove('active');
-
-  document.getElementById('resultName').textContent=loc.name;
-  document.getElementById('resultDist').textContent=loc.km+" km";
-  document.getElementById('resultPrice').textContent=formatPrice(loc.fiyat)+" ₺";
-  document.getElementById('resultDest').textContent=loc.name+" ("+loc.il+")";
-  document.getElementById('resultTime').textContent=calcTime(loc.km);
-  document.getElementById('resultTotalPrice').textContent=formatPrice(loc.fiyat)+" ₺";
-
-  resultCard.classList.add('active');
-  resultCard.scrollIntoView({behavior:'smooth',block:'nearest'});
+si.value=loc.n;sr.classList.remove('active');
+document.getElementById('resultName').textContent=loc.n;
+document.getElementById('resultDist').textContent=loc.k+' km';
+document.getElementById('resultPrice').textContent=loc.f.toLocaleString('tr-TR')+' ₺';
+document.getElementById('resultDest').textContent=loc.n;
+document.getElementById('resultIlce').textContent=loc.i+' / '+loc.il;
+document.getElementById('resultTime').textContent=calcTime(loc.k);
+document.getElementById('resultTotal').textContent=loc.f.toLocaleString('tr-TR')+' ₺';
+rc.classList.add('active');
+rc.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-// Tag clicks
-document.querySelectorAll('.tag').forEach(tag=>{
-  tag.addEventListener('click',function(){
-    const name=this.dataset.loc;
-    const loc=locations.find(l=>l.name===name);
-    if(loc)showResult(loc);
-  });
+document.querySelectorAll('.tag').forEach(t=>{
+t.addEventListener('click',function(){
+const loc=L.find(l=>l.n===this.dataset.loc);
+if(loc)showResult(loc);
+});
 });
 </script>
 </body>
