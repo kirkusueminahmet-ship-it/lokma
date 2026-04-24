@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koçarlı Lokma - Fiyat Hesaplama</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--gold:#C8963E;
+--gold-light:#F5E6C8;
+--gold-dark:#8B6914;
+--brown:#3E2723;
+--brown-light:#5D4037;
+--cream:#FFF8F0;
+--cream-dark:#F5EDE0;
+--white:#FFFFFF;
+--red:#C62828;
+--green:#2E7D32;
+--text:#2C1810;
+--text-muted:#7B6B5D;
+}
+body{
+font-family:'DM Sans',sans-serif;
+background:var(--cream);
+color:var(--text);
+min-height:100vh;
+}
+.hero{
+background:linear-gradient(135deg,var(--brown) 0%,var(--brown-light) 100%);
+padding:2.5rem 1.5rem 3.5rem;
+text-align:center;
+position:relative;
+overflow:hidden;
+}
+.hero::before{
+content:'';
+position:absolute;
+top:0;left:0;right:0;bottom:0;
+background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8963E' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-content{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.logo-icon{
+width:64px;height:64px;
+background:var(--gold);
+border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+margin:0 auto 1rem;
+font-size:28px;
+box-shadow:0 4px 20px rgba(200,150,62,0.3);
+}
+.hero h1{
+font-family:'Playfair Display',serif;
+font-size:2rem;
+color:var(--white);
+margin-bottom:0.3rem;
+letter-spacing:-0.5px;
+}
+.hero p{
+color:var(--gold-light);
+font-size:0.95rem;
+font-weight:400;
+}
+.search-section{
+max-width:560px;
+margin:-1.5rem auto 0;
+padding:0 1.5rem;
+position:relative;
+z-index:10;
+}
+.search-box{
+background:var(--white);
+border-radius:16px;
+box-shadow:0 8px 40px rgba(62,39,35,0.12),0 2px 8px rgba(62,39,35,0.06);
+padding:6px;
+display:flex;
+align-items:center;
+border:2px solid transparent;
+transition:border-color 0.2s;
+}
+.search-box:focus-within{
+border-color:var(--gold);
+}
+.search-box svg{
+margin-left:14px;
+flex-shrink:0;
+color:var(--text-muted);
+}
+.search-box input{
+flex:1;
+border:none;
+outline:none;
+padding:14px 12px;
+font-size:1.05rem;
+font-family:'DM Sans',sans-serif;
+color:var(--text);
+background:transparent;
+}
+.search-box input::placeholder{color:#B0A090}
+.search-results{
+position:absolute;
+top:100%;
+left:1.5rem;right:1.5rem;
+background:var(--white);
+border-radius:12px;
+box-shadow:0 12px 48px rgba(62,39,35,0.15);
+margin-top:4px;
+max-height:300px;
+overflow-y:auto;
+display:none;
+z-index:100;
+}
+.search-results.active{display:block}
+.search-item{
+padding:12px 18px;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #F0E8DC;
+transition:background 0.15s;
+}
+.search-item:last-child{border-bottom:none}
+.search-item:hover,.search-item.selected{background:var(--cream)}
+.search-item-name{font-weight:500;font-size:0.95rem}
+.search-item-dist{font-size:0.8rem;color:var(--text-muted)}
+.no-result{
+padding:20px 18px;
+text-align:center;
+color:var(--text-muted);
+font-size:0.9rem;
+}
+
+.result-card{
+max-width:560px;
+margin:1.5rem auto;
+padding:0 1.5rem;
+display:none;
+}
+.result-card.active{display:block}
+.card{
+background:var(--white);
+border-radius:16px;
+box-shadow:0 4px 24px rgba(62,39,35,0.08);
+overflow:hidden;
+animation:slideUp 0.4s ease;
+}
+@keyframes slideUp{
+from{opacity:0;transform:translateY(16px)}
+to{opacity:1;transform:translateY(0)}
+}
+.card-header{
+background:linear-gradient(135deg,var(--brown) 0%,var(--brown-light) 100%);
+padding:1.25rem 1.5rem;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.card-header h2{
+font-family:'Playfair Display',serif;
+color:var(--white);
+font-size:1.4rem;
+}
+.card-header .badge{
+background:var(--gold);
+color:var(--brown);
+padding:4px 12px;
+border-radius:20px;
+font-size:0.75rem;
+font-weight:700;
+}
+.card-body{padding:1.5rem}
+.stat-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+margin-bottom:1rem;
+}
+.stat{
+background:var(--cream);
+border-radius:12px;
+padding:1rem;
+text-align:center;
+}
+.stat-label{
+font-size:0.75rem;
+color:var(--text-muted);
+text-transform:uppercase;
+letter-spacing:0.5px;
+margin-bottom:4px;
+font-weight:600;
+}
+.stat-value{
+font-size:1.5rem;
+font-weight:700;
+color:var(--text);
+}
+.stat-value.price{color:var(--green);font-size:1.6rem}
+.stat-value.distance{color:var(--gold-dark)}
+.price-breakdown{
+background:var(--cream-dark);
+border-radius:12px;
+padding:1rem 1.25rem;
+margin-top:0.5rem;
+}
+.price-row{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:6px 0;
+font-size:0.85rem;
+color:var(--text-muted);
+}
+.price-row.total{
+border-top:2px solid var(--gold-light);
+margin-top:6px;
+padding-top:10px;
+font-weight:700;
+font-size:1rem;
+color:var(--text);
+}
+
+.info-section{
+max-width:560px;
+margin:1.5rem auto 2rem;
+padding:0 1.5rem;
+}
+.info-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+.info-card{
+background:var(--white);
+border-radius:12px;
+padding:1rem;
+box-shadow:0 2px 12px rgba(62,39,35,0.05);
+text-align:center;
+cursor:pointer;
+transition:transform 0.2s,box-shadow 0.2s;
+}
+.info-card:hover{
+transform:translateY(-2px);
+box-shadow:0 6px 20px rgba(62,39,35,0.1);
+}
+.info-card .ic-icon{
+font-size:1.5rem;
+margin-bottom:6px;
+}
+.info-card .ic-name{font-weight:600;font-size:0.85rem;margin-bottom:2px}
+.info-card .ic-price{font-size:0.8rem;color:var(--green);font-weight:700}
+.info-card .ic-dist{font-size:0.7rem;color:var(--text-muted)}
+
+.section-title{
+font-family:'Playfair Display',serif;
+font-size:1.15rem;
+margin-bottom:0.75rem;
+color:var(--brown);
+padding-left:4px;
+}
+
+.footer{
+text-align:center;
+padding:2rem 1.5rem;
+color:var(--text-muted);
+font-size:0.75rem;
+border-top:1px solid var(--cream-dark);
+}
+.footer strong{color:var(--gold-dark)}
+
+.tag-row{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin:1.5rem auto;
+max-width:560px;
+padding:0 1.5rem;
+}
+.tag{
+background:var(--white);
+border:1px solid var(--cream-dark);
+border-radius:20px;
+padding:6px 14px;
+font-size:0.8rem;
+font-weight:500;
+cursor:pointer;
+transition:all 0.2s;
+color:var(--text-muted);
+}
+.tag:hover{
+background:var(--gold-light);
+border-color:var(--gold);
+color:var(--gold-dark);
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="hero-content">
+<div class="logo-icon">🍩</div>
+<h1>Koçarlı Lokma</h1>
+<p>Fiyat hesaplama &mdash; Lokasyon ara, fiyatını öğren</p>
+</div>
+</div>
+
+<div class="search-section">
+<div class="search-box" id="searchBox">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+<input type="text" id="searchInput" placeholder="Lokasyon ara... (ör: Buharkent)" autocomplete="off">
+</div>
+<div class="search-results" id="searchResults"></div>
+</div>
+
+<div class="tag-row" id="tagRow">
+<span class="tag" data-loc="Aydın Merkez">Aydın Merkez</span>
+<span class="tag" data-loc="Nazilli">Nazilli</span>
+<span class="tag" data-loc="Denizli">Denizli</span>
+<span class="tag" data-loc="Muğla">Muğla</span>
+<span class="tag" data-loc="Marmaris">Marmaris</span>
+<span class="tag" data-loc="Söke">Söke</span>
+</div>
+
+<div class="result-card" id="resultCard">
+<div class="card">
+<div class="card-header">
+<h2 id="resultName">-</h2>
+<span class="badge">50 KG</span>
+</div>
+<div class="card-body">
+<div class="stat-grid">
+<div class="stat">
+<div class="stat-label">Mesafe</div>
+<div class="stat-value distance" id="resultDist">-</div>
+</div>
+<div class="stat">
+<div class="stat-label">Fiyat</div>
+<div class="stat-value price" id="resultPrice">-</div>
+</div>
+</div>
+<div class="price-breakdown">
+<div class="price-row">
+<span>Çıkış noktası</span>
+<span>Koçarlı</span>
+</div>
+<div class="price-row">
+<span>Varış noktası</span>
+<span id="resultDest">-</span>
+</div>
+<div class="price-row">
+<span>Tahmini süre</span>
+<span id="resultTime">-</span>
+</div>
+<div class="price-row total">
+<span>Toplam fiyat (50 kg)</span>
+<span id="resultTotalPrice">-</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="info-section">
+<div class="section-title">Popüler lokasyonlar</div>
+<div class="info-grid" id="popularGrid"></div>
+</div>
+
+<div class="footer">
+<strong>Koçarlı Lokma</strong> &mdash; Tüm fiyatlar 50 kg lokma içindir.<br>
+Fiyatlar mesafeye göre değişiklik gösterebilir. &copy; 2026
+</div>
+
+<script>
+const locations = [
+  // Aydın İli
+  {name:"Aydın Merkez",il:"Aydın",km:22,fiyat:9000},
+  {name:"Efeler",il:"Aydın",km:22,fiyat:9000},
+  {name:"Söke",il:"Aydın",km:36,fiyat:10000},
+  {name:"Kuşadası",il:"Aydın",km:50,fiyat:11000},
+  {name:"Davutlar",il:"Aydın",km:55,fiyat:11000},
+  {name:"İncirliova",il:"Aydın",km:35,fiyat:10000},
+  {name:"Germencik",il:"Aydın",km:42,fiyat:10500},
+  {name:"Köşk",il:"Aydın",km:45,fiyat:10500},
+  {name:"Sultanhisar",il:"Aydın",km:55,fiyat:11000},
+  {name:"Kuyucak",il:"Aydın",km:62,fiyat:11000},
+  {name:"Nazilli",il:"Aydın",km:67,fiyat:11000},
+  {name:"Buharkent",il:"Aydın",km:80,fiyat:12000},
+  {name:"Bozdoğan",il:"Aydın",km:48,fiyat:10500},
+  {name:"Çine",il:"Aydın",km:30,fiyat:9500},
+  {name:"Karacasu",il:"Aydın",km:72,fiyat:11500},
+  {name:"Karpuzlu",il:"Aydın",km:22,fiyat:9000},
+  {name:"Yenipazar",il:"Aydın",km:58,fiyat:11000},
+  {name:"Didim",il:"Aydın",km:78,fiyat:12000},
+  {name:"Altınkum",il:"Aydın",km:80,fiyat:12000},
+
+  // Denizli
+  {name:"Denizli",il:"Denizli",km:150,fiyat:14000},
+  {name:"Pamukkale",il:"Denizli",km:140,fiyat:13500},
+  {name:"Sarayköy",il:"Denizli",km:127,fiyat:13000},
+  {name:"Buldan",il:"Denizli",km:110,fiyat:12500},
+  {name:"Tavas",il:"Denizli",km:130,fiyat:13000},
+  {name:"Acıpayam",il:"Denizli",km:170,fiyat:15000},
+  {name:"Çal",il:"Denizli",km:120,fiyat:12500},
+  {name:"Çivril",il:"Denizli",km:180,fiyat:15500},
+  {name:"Honaz",il:"Denizli",km:155,fiyat:14000},
+  {name:"Kale",il:"Denizli",km:160,fiyat:14500},
+
+  // Muğla
+  {name:"Muğla",il:"Muğla",km:104,fiyat:14000},
+  {name:"Menteşe",il:"Muğla",km:104,fiyat:14000},
+  {name:"Marmaris",il:"Muğla",km:158,fiyat:15000},
+  {name:"Bodrum",il:"Muğla",km:140,fiyat:14500},
+  {name:"Milas",il:"Muğla",km:93,fiyat:13500},
+  {name:"Yatağan",il:"Muğla",km:75,fiyat:12000},
+  {name:"Fethiye",il:"Muğla",km:230,fiyat:18000},
+  {name:"Dalaman",il:"Muğla",km:190,fiyat:16000},
+  {name:"Köyceğiz",il:"Muğla",km:163,fiyat:15000},
+  {name:"Ortaca",il:"Muğla",km:195,fiyat:16000},
+  {name:"Datça",il:"Muğla",km:223,fiyat:17500},
+  {name:"Ula",il:"Muğla",km:121,fiyat:14000},
+  {name:"Kavaklıdere",il:"Muğla",km:99,fiyat:13500},
+  {name:"Seydikemer",il:"Muğla",km:220,fiyat:17500},
+
+  // İzmir
+  {name:"İzmir",il:"İzmir",km:150,fiyat:14000},
+  {name:"Selçuk",il:"İzmir",km:65,fiyat:11000},
+  {name:"Tire",il:"İzmir",km:75,fiyat:12000},
+  {name:"Ödemiş",il:"İzmir",km:95,fiyat:13000},
+  {name:"Torbalı",il:"İzmir",km:110,fiyat:12500},
+  {name:"Menderes",il:"İzmir",km:100,fiyat:13000},
+  {name:"Buca",il:"İzmir",km:140,fiyat:13500},
+  {name:"Karabağlar",il:"İzmir",km:142,fiyat:14000},
+
+  // Burdur / Isparta
+  {name:"Burdur",il:"Burdur",km:200,fiyat:16500},
+  {name:"Isparta",il:"Isparta",km:230,fiyat:18000},
+
+  // Manisa
+  {name:"Manisa",il:"Manisa",km:190,fiyat:16000},
+  {name:"Salihli",il:"Manisa",km:160,fiyat:14500},
+  {name:"Alaşehir",il:"Manisa",km:145,fiyat:14000},
+
+  // Afyon
+  {name:"Afyon",il:"Afyon",km:250,fiyat:19000},
+
+  // Antalya
+  {name:"Antalya",il:"Antalya",km:300,fiyat:21000},
+];
+
+const popularLocs = ["Aydın Merkez","Söke","Nazilli","Davutlar","Denizli","Muğla","Marmaris","Bodrum"];
+
+function formatPrice(n){return n.toLocaleString('tr-TR');}
+function calcTime(km){
+  const mins = Math.round(km * 1.1);
+  if(mins<60) return mins+" dk";
+  const h=Math.floor(mins/60);
+  const m=mins%60;
+  return h+" sa "+m+" dk";
+}
+
+// Populate popular grid
+const grid=document.getElementById('popularGrid');
+const icons=["📍","🏖","🏛","🌊","🏔","⛰","🌅","⚓"];
+popularLocs.forEach((name,i)=>{
+  const loc=locations.find(l=>l.name===name);
+  if(!loc)return;
+  const div=document.createElement('div');
+  div.className='info-card';
+  div.innerHTML=`
+    <div class="ic-icon">${icons[i%icons.length]}</div>
+    <div class="ic-name">${loc.name}</div>
+    <div class="ic-price">${formatPrice(loc.fiyat)} ₺</div>
+    <div class="ic-dist">${loc.km} km</div>
+  `;
+  div.onclick=()=>showResult(loc);
+  grid.appendChild(div);
+});
+
+// Search functionality
+const searchInput=document.getElementById('searchInput');
+const searchResults=document.getElementById('searchResults');
+const resultCard=document.getElementById('resultCard');
+let selectedIndex=-1;
+
+function normalize(str){
+  return str.toLowerCase()
+    .replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i')
+    .replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u')
+    .replace(/Ç/g,'c').replace(/Ğ/g,'g').replace(/İ/g,'i')
+    .replace(/Ö/g,'o').replace(/Ş/g,'s').replace(/Ü/g,'u');
+}
+
+searchInput.addEventListener('input',function(){
+  const q=normalize(this.value.trim());
+  selectedIndex=-1;
+  if(q.length<1){
+    searchResults.classList.remove('active');
+    return;
+  }
+  const matches=locations.filter(l=>
+    normalize(l.name).includes(q)||normalize(l.il).includes(q)
+  ).slice(0,8);
+
+  if(matches.length===0){
+    searchResults.innerHTML='<div class="no-result">Sonuç bulunamadı</div>';
+    searchResults.classList.add('active');
+    return;
+  }
+
+  searchResults.innerHTML=matches.map((m,i)=>`
+    <div class="search-item" data-index="${i}">
+      <div>
+        <span class="search-item-name">${m.name}</span>
+        <span style="font-size:0.75rem;color:var(--text-muted);margin-left:6px">${m.il}</span>
+      </div>
+      <span class="search-item-dist">${m.km} km</span>
+    </div>
+  `).join('');
+  searchResults.classList.add('active');
+
+  searchResults.querySelectorAll('.search-item').forEach((el,i)=>{
+    el.addEventListener('click',()=>showResult(matches[i]));
+  });
+});
+
+searchInput.addEventListener('keydown',function(e){
+  const items=searchResults.querySelectorAll('.search-item');
+  if(!items.length)return;
+
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    selectedIndex=Math.min(selectedIndex+1,items.length-1);
+    items.forEach((el,i)=>el.classList.toggle('selected',i===selectedIndex));
+  }else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    selectedIndex=Math.max(selectedIndex-1,0);
+    items.forEach((el,i)=>el.classList.toggle('selected',i===selectedIndex));
+  }else if(e.key==='Enter'&&selectedIndex>=0){
+    e.preventDefault();
+    items[selectedIndex].click();
+  }
+});
+
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.search-section')){
+    searchResults.classList.remove('active');
+  }
+});
+
+function showResult(loc){
+  searchInput.value=loc.name;
+  searchResults.classList.remove('active');
+
+  document.getElementById('resultName').textContent=loc.name;
+  document.getElementById('resultDist').textContent=loc.km+" km";
+  document.getElementById('resultPrice').textContent=formatPrice(loc.fiyat)+" ₺";
+  document.getElementById('resultDest').textContent=loc.name+" ("+loc.il+")";
+  document.getElementById('resultTime').textContent=calcTime(loc.km);
+  document.getElementById('resultTotalPrice').textContent=formatPrice(loc.fiyat)+" ₺";
+
+  resultCard.classList.add('active');
+  resultCard.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// Tag clicks
+document.querySelectorAll('.tag').forEach(tag=>{
+  tag.addEventListener('click',function(){
+    const name=this.dataset.loc;
+    const loc=locations.find(l=>l.name===name);
+    if(loc)showResult(loc);
+  });
+});
+</script>
+</body>
+</html>
