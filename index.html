@@ -248,18 +248,31 @@ const rc=document.getElementById('resultCard');
 let sel=-1;
 
 function norm(s){
-return s.toLowerCase()
-.replace(/ç/g,'c').replace(/ğ/g,'g').replace(/ı/g,'i')
-.replace(/ö/g,'o').replace(/ş/g,'s').replace(/ü/g,'u')
-.replace(/Ç/g,'c').replace(/Ğ/g,'g').replace(/İ/g,'i')
-.replace(/Ö/g,'o').replace(/Ş/g,'s').replace(/Ü/g,'u');
+return s
+.replace(/Ç/g,'c').replace(/ç/g,'c')
+.replace(/Ğ/g,'g').replace(/ğ/g,'g')
+.replace(/İ/g,'i').replace(/ı/g,'i')
+.replace(/Ö/g,'o').replace(/ö/g,'o')
+.replace(/Ş/g,'s').replace(/ş/g,'s')
+.replace(/Ü/g,'u').replace(/ü/g,'u')
+.replace(/I/g,'i')
+.toLowerCase();
 }
 
+const tipOrder={"İl Merkezi":0,"İlçe Merkezi":1,"İlçe":2,"Belde":3,"Köy/Mahalle":4};
 si.addEventListener('input',function(){
 const q=norm(this.value.trim());
 sel=-1;
 if(q.length<1){sr.classList.remove('active');return}
-const m=L.filter(l=>norm(l.n).includes(q)||norm(l.i).includes(q)||norm(l.il).includes(q)).slice(0,10);
+const m=L.filter(l=>norm(l.n).includes(q)||norm(l.i).includes(q)||norm(l.il).includes(q))
+.sort((a,b)=>{
+const ta=tipOrder[a.t]||5,tb=tipOrder[b.t]||5;
+if(ta!==tb)return ta-tb;
+const an=norm(a.n)===q?0:norm(a.n).startsWith(q)?1:2;
+const bn=norm(b.n)===q?0:norm(b.n).startsWith(q)?1:2;
+if(an!==bn)return an-bn;
+return a.k-b.k;
+}).slice(0,10);
 if(!m.length){sr.innerHTML='<div class="no-result">Sonuç bulunamadı</div>';sr.classList.add('active');return}
 sr.innerHTML=m.map((x,i)=>`
 <div class="search-item" data-i="${i}">
